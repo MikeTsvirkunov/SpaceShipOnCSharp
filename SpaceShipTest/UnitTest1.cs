@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Concurrent;
+using System.Collections;
+using System.Collections.Generic;
 using SpaceShip;
 
 namespace SpaceShipTest
@@ -8,13 +10,36 @@ namespace SpaceShipTest
     public class TestMovableObj
     {
         [TestMethod]
-        public void Obj_w_speed_and_coord()
+        public void obj_with_speed_and_coord()
         {
             int[] expectation_coords = new int[2] { 5, 8 };
-            ConcurrentDictionary<string, dynamic> spaceship_parametrs = new ConcurrentDictionary<string, dynamic>();
-            spaceship_parametrs.TryAdd("coords", new int[2] { 1, 2 });
-            /*spaceship_parametrs.TryAdd("speed", new Speed(xls: 12, yls: 5));*/
-            /*MoveableObject object_w_speed_and_coords = new MoveableObject(spaceship_parametrs);*/
+            
+            MoveableObject spaceship_w_speed_and_coords = new MoveableObject(new Dictionary<string, dynamic> { { "coord", new int[2] { 12, 5 } }, { "speed", new int[2] { -7, 3 } } });
+
+            spaceship_w_speed_and_coords.frontmove();
+
+            Assert.AreEqual(expectation_coords[0], spaceship_w_speed_and_coords.GetParam("coord")[0], "Coord fell short of expectations by X");
+            Assert.AreEqual(expectation_coords[1], spaceship_w_speed_and_coords.GetParam("coord")[1], "Coord fell short of expectations by Y");
+        }
+
+        [TestMethod]
+        public void obj_with_speed_and_without_coord()
+        {
+            int[] expectation_coords = new int[2] { 5, 8 };
+
+            MoveableObject spaceship_w_speed_and_coords = new MoveableObject(new Dictionary<string, dynamic> { { "speed", new int[2] { -7, 3 } } });
+
+            try
+            {
+                spaceship_w_speed_and_coords.frontmove();
+            }
+            catch (System.ArgumentException e)
+            {
+                StringAssert.Contains(e.Message, MoveableObject.CoordExistError);
+                return;
+            }
+
+            Assert.Fail("The expected exception was not thrown.");
         }
     }
 }
