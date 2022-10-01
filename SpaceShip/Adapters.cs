@@ -7,7 +7,7 @@ using System.Collections.Concurrent;
 
 namespace SpaceShip
 {
-    class MoveableObject : FrontMove
+    public class MoveableObject : FrontMove
     {
         UIObject obj;
 
@@ -18,12 +18,12 @@ namespace SpaceShip
 
         public void frontmove()
         {
-            obj.SetParam("coord", obj.GetParam("speed") + obj.GetParam("coords"));
+            obj.SetParam("coord", new int[2] { obj.GetParam("speed").XLSpeed + obj.GetParam("coords")[0], obj.GetParam("speed").YLSpeed + obj.GetParam("coords")[1] });
         }
     }
 
 
-    class RotationObject : RotationMove
+    public class RotationObject : RotationMove
     {
         UIObject obj;
 
@@ -35,7 +35,7 @@ namespace SpaceShip
         public void rotation()
         {
             obj.SetParam("angle", obj.GetParam("angle") + obj.GetParam("angle_speed"));
-            obj.SetParam("speed", obj.GetParam("speed").Angle(obj.GetParam("angle")));
+            obj.GetParam("speed").Angle = obj.GetParam("angle");
         }
     }
 }

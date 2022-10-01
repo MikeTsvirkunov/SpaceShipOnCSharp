@@ -3,18 +3,44 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceShip", "SpaceShip\SpaceShip.csproj", "{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpaceShip", "SpaceShip\SpaceShip.csproj", "{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceShipTest", "SpaceShipTest\SpaceShipTest.csproj", "{5EDFA64E-72C4-4783-929E-FE67C354EEC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM32 = Debug|ARM32
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|ARM32 = Release|ARM32
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}.Debug|ARM32.ActiveCfg = Debug|ARM32
+		{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}.Debug|ARM32.Build.0 = Debug|ARM32
+		{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}.Debug|x86.ActiveCfg = Debug|x86
+		{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}.Debug|x86.Build.0 = Debug|x86
 		{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}.Release|ARM32.ActiveCfg = Release|x86
+		{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}.Release|ARM32.Build.0 = Release|x86
+		{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}.Release|x86.ActiveCfg = Release|x86
+		{AD91F3BF-80F4-42FC-AC39-8A3A79E5497F}.Release|x86.Build.0 = Release|x86
+		{5EDFA64E-72C4-4783-929E-FE67C354EEC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EDFA64E-72C4-4783-929E-FE67C354EEC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EDFA64E-72C4-4783-929E-FE67C354EEC3}.Debug|ARM32.ActiveCfg = Debug|Any CPU
+		{5EDFA64E-72C4-4783-929E-FE67C354EEC3}.Debug|ARM32.Build.0 = Debug|Any CPU
+		{5EDFA64E-72C4-4783-929E-FE67C354EEC3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5EDFA64E-72C4-4783-929E-FE67C354EEC3}.Debug|x86.Build.0 = Debug|Any CPU
+		{5EDFA64E-72C4-4783-929E-FE67C354EEC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EDFA64E-72C4-4783-929E-FE67C354EEC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EDFA64E-72C4-4783-929E-FE67C354EEC3}.Release|ARM32.ActiveCfg = Release|Any CPU
+		{5EDFA64E-72C4-4783-929E-FE67C354EEC3}.Release|ARM32.Build.0 = Release|Any CPU
+		{5EDFA64E-72C4-4783-929E-FE67C354EEC3}.Release|x86.ActiveCfg = Release|Any CPU
+		{5EDFA64E-72C4-4783-929E-FE67C354EEC3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
