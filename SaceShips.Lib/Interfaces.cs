@@ -2,6 +2,7 @@
 
 interface Movement
 {
-    void action(dynamic o, int t);
+    void move(int t);
+    void speed_change(dynamic s);
 }
 

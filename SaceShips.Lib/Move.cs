@@ -1,45 +1,64 @@
 namespace SaceShips.Lib;
 
+
 public class FrontMove: Movement
 {
-    public void action(dynamic o, int t = 1) {
-        if (o is UIObject)
+    private UIObject moveable_obj;
+
+    public FrontMove(UIObject o){
+        this.moveable_obj = o;
+    }
+
+    public void move(int t=1) {
+        if (this.moveable_obj.ParamExist("coord"))
         {
-            if (o.exist_param("speed") & o.exist_param("coord"))
-            {
-                o.set_param("coord", new double[2] { o.get_param("coord")[0] + t * o.get_param("speed")[0],
-                                                     o.get_param("coord")[1] + t * o.get_param("speed")[1] });
+            if (this.moveable_obj.ParamExist("speed")){
+                this.moveable_obj.SetParam("coord", new double[2] { this.moveable_obj.GetParam("coord")[0] + t * this.moveable_obj.GetParam("speed")[0],
+                                                                    this.moveable_obj.GetParam("coord")[1] + t * this.moveable_obj.GetParam("speed")[1] });
             }
-            else
-            {
-                if (o.exist_param("speed")) throw new ArgumentException("Object without coord");
-                else throw new ArgumentException("Object without speed");
-            }
+            else throw new ArgumentException("Object without speed");
         }
-        else throw new ArgumentException("Incorect move object");
+        else throw new ArgumentException("Object without coord");
+    }
+
+    public void speed_change(dynamic s){
+        if (s is double){
+            if (this.moveable_obj.ParamExist("speed")) this.moveable_obj.SetParam("speed", s);
+            else throw new ArgumentException("Object without speed");
+        }
+        else throw new ArgumentException("Incorect new speed param");
     }
 }
 
-public class RotationMove : Movement
+
+public class RotationMove: Movement
 {
-    public void action(dynamic o, int t = 1)
-    {
-        if (o is UIObject)
+    private UIObject moveable_obj;
+
+    public RotationMove(UIObject o){
+        this.moveable_obj = o;
+    }
+
+    public void move(int t=1) {
+        if (this.moveable_obj.ParamExist("angle"))
         {
-            if (o.exist_param("angle_speed") & o.exist_param("angle"))
-            {
-                dynamic angle_speed = o.get_param("angle_speed");
-                o.set_param("angle", o.get_param("angle") + angle_speed * t);
-                double[] speed = o.get_param("speed");
-                o.set_param("speed", new double[2] { (speed[0] * Math.Cos(Math.PI * angle_speed / 180) - speed[1] * Math.Sin(Math.PI * angle_speed / 180)), 
-                                                      speed[1] * Math.Cos(Math.PI * angle_speed / 180) - speed[0] * Math.Sin(Math.PI * angle_speed / 180) });
+            if (this.moveable_obj.ParamExist("angle_speed")){
+                this.moveable_obj.SetParam("angle", this.moveable_obj.GetParam("angle") + this.moveable_obj.GetParam("angle_speed") * t);
             }
-            else
-            {
-                if (o.exist_param("angle_speed")) throw new ArgumentException("Object without angle");
-                else throw new ArgumentException("Object without angle_speed");
-            }
+            else throw new ArgumentException("Object without angle_speed");
         }
-        else throw new ArgumentException("Incorect move object");
+        else throw new ArgumentException("Object without angle");
+    }
+
+    public void speed_change(dynamic s){
+        if (s is double){
+            if (this.moveable_obj.ParamExist("angle_speed")) this.moveable_obj.SetParam("angle_speed", s);
+            else throw new ArgumentException("Object without angle_speed");
+        }
+        else throw new ArgumentException("Incorect new angle_speed param");
     }
 }
+
+
+// eval "$(ssh-agent -s)"
+// ssh-add ../sshgit
