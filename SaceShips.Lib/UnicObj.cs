@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SaceShips.Lib;
 
-public class UIObject
+public class UIObject: InterfaceObject
     {
         // Dictionary with obj params
         private ConcurrentDictionary<string, dynamic> parametrs;
