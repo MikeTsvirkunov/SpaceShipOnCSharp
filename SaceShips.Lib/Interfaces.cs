@@ -4,7 +4,6 @@ namespace SaceShips.Lib;
 public interface Movement
 {
     void move(int t);
-    void speed_change(dynamic s);
 }
 
 public interface InterfaceObject

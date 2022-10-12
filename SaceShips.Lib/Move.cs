@@ -3,9 +3,9 @@ namespace SaceShips.Lib;
 
 public class FrontMove: Movement
 {
-    private UIObject moveable_obj;
+    private InterfaceObject moveable_obj;
 
-    public FrontMove(UIObject o){
+    public FrontMove(InterfaceObject o){
         this.moveable_obj = o;
     }
 
@@ -19,14 +19,6 @@ public class FrontMove: Movement
             else throw new ArgumentException("Object without speed");
         }
         else throw new ArgumentException("Object without coord");
-    }
-
-    public void speed_change(dynamic s){
-        if (s is double){
-            if (this.moveable_obj.ParamExist("speed")) this.moveable_obj.SetParam("speed", s);
-            else throw new ArgumentException("Object without speed");
-        }
-        else throw new ArgumentException("Incorect new speed param");
     }
 }
 
@@ -48,14 +40,6 @@ public class RotationMove: Movement
             else throw new ArgumentException("Object without angle_speed");
         }
         else throw new ArgumentException("Object without angle");
-    }
-
-    public void speed_change(dynamic s){
-        if (s is double){
-            if (this.moveable_obj.ParamExist("angle_speed")) this.moveable_obj.SetParam("angle_speed", s);
-            else throw new ArgumentException("Object without angle_speed");
-        }
-        else throw new ArgumentException("Incorect new angle_speed param");
     }
 }
 
