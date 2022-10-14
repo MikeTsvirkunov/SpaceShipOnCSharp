@@ -1,9 +1,9 @@
 ﻿using System.Collections.Concurrent;
 namespace SaceShips.Lib;
 
-public interface Movement
+public interface ICommand
 {
-    void move(int t);
+    void action(int t);
 }
 
 public interface InterfaceObject
@@ -14,3 +14,8 @@ public interface InterfaceObject
     bool ParamExist(string key);
 }
 
+
+public interface IVectorise
+{
+    
+}

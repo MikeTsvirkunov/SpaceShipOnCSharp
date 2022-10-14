@@ -1,7 +1,7 @@
 namespace SaceShips.Lib;
 
 
-public class FrontMove: Movement
+public class FrontMove: ICommand
 {
     private InterfaceObject moveable_obj;
 
@@ -9,7 +9,7 @@ public class FrontMove: Movement
         this.moveable_obj = o;
     }
 
-    public void move(int t=1) {
+    public void action(int t=1) {
         if (this.moveable_obj.ParamExist("coord"))
         {
             if (this.moveable_obj.ParamExist("speed")){
@@ -23,7 +23,7 @@ public class FrontMove: Movement
 }
 
 
-public class RotationMove: Movement
+public class RotationMove: ICommand
 {
     private UIObject moveable_obj;
 
@@ -31,7 +31,7 @@ public class RotationMove: Movement
         this.moveable_obj = o;
     }
 
-    public void move(int t=1) {
+    public void action(int t=1) {
         if (this.moveable_obj.ParamExist("angle"))
         {
             if (this.moveable_obj.ParamExist("angle_speed")){
