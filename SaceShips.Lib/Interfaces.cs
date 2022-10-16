@@ -3,7 +3,7 @@ namespace SaceShips.Lib;
 
 public interface ICommand
 {
-    void action(int t);
+    void action();
 }
 
 public interface InterfaceObject
@@ -15,7 +15,8 @@ public interface InterfaceObject
 }
 
 
-public interface IVectorise
-{
-    
+public interface IVectorise{}
+public interface IFraction{
+    double GetDouble();
+    int[] GetFract();
 }
