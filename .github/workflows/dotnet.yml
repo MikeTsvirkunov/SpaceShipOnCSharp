@@ -17,6 +17,10 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+        files: coverage.xml
+        flags: unittests
+        env_vars: OS,PYTHON
+        fail_ci_if_error: true
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
