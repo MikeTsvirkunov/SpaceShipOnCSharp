@@ -6,6 +6,19 @@ on:
   pull_request:
     branches: [ "master" ]
 
+steps:
+- uses: actions/checkout@master
+- name: Codecov
+  uses: codecov/codecov-action@v3.1.1
+- uses: codecov/codecov-action@v3
+  with:
+    token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+    files: ./coverage1.xml,./coverage2.xml # optional
+    flags: unittests # optional
+    name: codecov-umbrella # optional
+    fail_ci_if_error: true # optional (default = false)
+    verbose: true # optional (default = false)
+
 jobs:
   build:
 
@@ -17,13 +30,9 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-        files: coverage.xml
-        flags: unittests
-        env_vars: OS,PYTHON
-        fail_ci_if_error: true
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --collect "XPlat Code coverage"
+      run: dotnet test --no-build --verbosity normals
