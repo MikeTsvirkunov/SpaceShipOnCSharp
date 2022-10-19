@@ -7,8 +7,8 @@ namespace SaceShips.Lib;
 public class UIObject : InterfaceObject
 {
     // Dictionary with obj params
-    private ConcurrentDictionary<string, dynamic> parametrs;
-
+    public ConcurrentDictionary<string, dynamic> parametrs {get; set;}
+    // private ConcurrentDictionary<string, dynamic> parametrs;
     public UIObject(Dictionary<string, dynamic> p)
     {
         this.parametrs = new ConcurrentDictionary<string, dynamic>(p);

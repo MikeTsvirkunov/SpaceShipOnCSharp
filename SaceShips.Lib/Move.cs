@@ -3,7 +3,8 @@ namespace SaceShips.Lib;
 
 public class FrontMove : ICommand
 {
-    private InterfaceObject moveable_obj;
+    // private UIObject moveable_obj;
+    public InterfaceObject moveable_obj {get; set;}
 
     public FrontMove(InterfaceObject o)
     {
@@ -28,9 +29,10 @@ public class FrontMove : ICommand
 
 public class RotationMove : ICommand
 {
-    private UIObject moveable_obj;
+    // private UIObject moveable_obj;
+    public InterfaceObject moveable_obj {get;set;}
 
-    public RotationMove(UIObject o)
+    public RotationMove(InterfaceObject o)
     {
         this.moveable_obj = o;
     }

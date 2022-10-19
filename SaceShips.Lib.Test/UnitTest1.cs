@@ -15,6 +15,6 @@ public class UnitTest1
         var spaceobj = new Mock<InterfaceObject>();
         spaceobj.Setup(p => p.GetAllParams()).Returns(It.IsAny<ConcurrentDictionary<string, dynamic>>());
         spaceobj.Setup(p => p.GetParam(It.IsAny<string>())).Returns(It.IsAny<dynamic>());
-        spaceobj.Setup(p => p.ParamExist(It.IsAny<string>())).Returns(It.IsAny<dynamic>());
+        spaceobj.Setup(p => p.ParamExist(It.IsAny<string>())).Returns(It.IsAny<bool>());
     }
 }
