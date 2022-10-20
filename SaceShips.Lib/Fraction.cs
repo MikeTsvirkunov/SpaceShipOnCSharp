@@ -1,7 +1,7 @@
 // public class Fraction:IFraction
 // {
-//     private int a;
-//     public int b; 
+//     private dynamic a;
+//     public dynamic b; 
 
 //     public Fraction(params double[] args)
 //     {
@@ -11,12 +11,12 @@
 
 //     public static Fraction operator +(Vector a, Vector b)
 //     {
-        
+
 //     }
 
 //     public static Fraction operator -(Vector a, Vector b)
 //     {
-        
+
 //     }
 
 //     public static Fraction operator *(int a, Vector b)
@@ -26,22 +26,22 @@
 
 //     public static bool operator ==(Vector a, Vector b)
 //     {
-        
+
 //     }
 
 //     public static bool operator !=(Vector a, Vector b)
 //     {
-        
+
 //     }
 
 //     public static bool operator >(Vector a, Vector b)
 //     {
-        
+
 //     }
 
 //     public static bool operator <(Vector a, Vector b)
 //     {
-        
+
 //     }
 // }
 

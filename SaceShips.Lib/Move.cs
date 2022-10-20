@@ -4,7 +4,7 @@ namespace SaceShips.Lib;
 public class FrontMove : ICommand
 {
     // private UIObject moveable_obj;
-    public InterfaceObject moveable_obj {get; set;}
+    private InterfaceObject moveable_obj;
 
     public FrontMove(InterfaceObject o)
     {
@@ -30,7 +30,7 @@ public class FrontMove : ICommand
 public class RotationMove : ICommand
 {
     // private UIObject moveable_obj;
-    public InterfaceObject moveable_obj {get;set;}
+    private InterfaceObject moveable_obj;
 
     public RotationMove(InterfaceObject o)
     {
@@ -45,10 +45,10 @@ public class RotationMove : ICommand
             {
                 this.moveable_obj.SetParam("angle", this.moveable_obj.GetParam("angle") + this.moveable_obj.GetParam("angle_speed"));
                 double a = this.moveable_obj.GetParam("angle_speed");
-                double x = this.moveable_obj.GetParam("coord")[0] * Math.Cos(a)  - this.moveable_obj.GetParam("coord")[1] * Math.Sin(a);
-                double y = this.moveable_obj.GetParam("coord")[0] * Math.Sin(a)  + this.moveable_obj.GetParam("coord")[1] * Math.Cos(a);
-                
-                this.moveable_obj.SetParam("coord", new double[2] {x, y});
+                double x = this.moveable_obj.GetParam("coord")[0] * Math.Cos(a) - this.moveable_obj.GetParam("coord")[1] * Math.Sin(a);
+                double y = this.moveable_obj.GetParam("coord")[0] * Math.Sin(a) + this.moveable_obj.GetParam("coord")[1] * Math.Cos(a);
+
+                this.moveable_obj.SetParam("coord", new double[2] { x, y });
             }
             else throw new ArgumentException("Object without angle_speed");
         }

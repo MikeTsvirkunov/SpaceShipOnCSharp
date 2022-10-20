@@ -12,27 +12,27 @@ public class FrontMoveUnitTest
     [Fact]
     public void Test_Movement_for_Full_Object()
     {
-        var parametrix = new ConcurrentDictionary<string, dynamic>(new Dictionary<string, dynamic> {{"coord", new double[2] { 12, 5 }}, {"speed", new double[2] { -7, 3 }}});
-        // new Dictionary<string, dynamic> {{"coord", new double[2] { 12, 5 }}, {"speed", new double[2] { -7, 3 }}}
-        var spaceship_w_speed_and_coord_parametrs = new Mock<InterfaceObject>();//new Dictionary<string, dynamic> {{"coord", new double[2] { 12, 5 }}, {"speed", new double[2] { -7, 3 }}}
-        spaceship_w_speed_and_coord_parametrs.SetupProperty(x=>x.parametrs, parametrix);
-        spaceship_w_speed_and_coord_parametrs.SetupGet(x=>x.parametrs).Returns(parametrix);                                                                           
-        // spaceship_w_speed_and_coord_parametrs.SetupGet(x=>x.parametrs).Re;
-        // spaceship_w_speed_and_parametrs.SetupProperty()
-        // spaceship_w_speed_and_parametrs.Setup(p => p.GetParam("coord")).Returns(new double[2] { 12, 5 });
-        // spaceship_w_speed_and_parametrs.Setup(p => p.GetParam("speed")).Returns(new double[2] { -7, 3 });
+        var parametrix = new ConcurrentDictionary<string, dynamic>(new Dictionary<string, dynamic> { { "coord", new double[2] { 12, 5 } }, { "speed", new double[2] { -7, 3 } } });
+
+        var spaceship_w_speed_and_coord_parametrs = new Mock<InterfaceObject>();
+        // spaceship_w_speed_and_coord_parametrs.SetupProperty(x=>x.parametrs, parametrix);
+        // spaceship_w_speed_and_coord_parametrs.SetupGet(x=>x.parametrs).Returns(parametrix);
+        spaceship_w_speed_and_coord_parametrs.Setup(p => p.GetParam("old_coord")).Returns(new double[2] { 12, 5 });
+        spaceship_w_speed_and_coord_parametrs.Setup(p => p.GetParam("speed")).Returns(new double[2] { -7, 3 });
         spaceship_w_speed_and_coord_parametrs.Setup(p => p.ParamExist("speed")).Returns(true);
         spaceship_w_speed_and_coord_parametrs.Setup(p => p.ParamExist("coord")).Returns(true);
-        spaceship_w_speed_and_coord_parametrs.Setup(p => p.GetParam("coord")).Returns(spaceship_w_speed_and_coord_parametrs.Object.parametrs["coord"]);
-        spaceship_w_speed_and_coord_parametrs.Setup(p => p.GetParam("speed")).Returns(spaceship_w_speed_and_coord_parametrs.Object.parametrs["speed"]);
+        var move_spaceship_w_speed_and_coord_parametrs = new Mock<ICommand>();
+        move_spaceship_w_speed_and_coord_parametrs.Setup(p => p.action()).Callback(() =>
+        {
+            spaceship_w_speed_and_coord_parametrs.Setup(p => p.GetParam("new_coord"))
+            .Returns(new double[2] { spaceship_w_speed_and_coord_parametrs.Object.GetParam("old_coord")[0] + spaceship_w_speed_and_coord_parametrs.Object.GetParam("speed")[0], spaceship_w_speed_and_coord_parametrs.Object.GetParam("old_coord")[1] + spaceship_w_speed_and_coord_parametrs.Object.GetParam("speed")[1]});
+        });
 
-        var move_spaceship_w_speed_and_parametrs = new Mock<ICommand>();
-        move_spaceship_w_speed_and_parametrs.SetupProperty(x=>x.moveable_obj, spaceship_w_speed_and_coord_parametrs.Object);
-        move_spaceship_w_speed_and_parametrs.Setup(p => p.action()).Callback(() => move_spaceship_w_speed_and_parametrs.Object.moveable_obj.parametrs["coords"] += move_spaceship_w_speed_and_parametrs.Object.moveable_obj.GetParam("speed"));
-        
+        move_spaceship_w_speed_and_coord_parametrs.Object.action();
         double[] expected = new double[2] { 5, 8 };
-        
-        // Assert.Equal(expected[0], real[0]);
+        double[] real = spaceship_w_speed_and_coord_parametrs.Object.GetParam("new_coord");
+        Assert.Equal(expected[0], real[0]);
+        Assert.Equal(expected[1], real[1]);
     }
 
     [Fact]
