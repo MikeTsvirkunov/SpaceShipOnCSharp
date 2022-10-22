@@ -6,18 +6,12 @@ public interface ICommand
     void action();
 }
 
-public interface InterfaceObject
-{
-    ConcurrentDictionary<string, dynamic> GetAllParams();
-    dynamic GetParam(string key);
-    void SetParam(string key, dynamic value);
-    bool ParamExist(string key);
+public interface IMoveable{
+    Vector frontSpeed {get; set;}
+    Vector coord {get; set;}
 }
 
-
-public interface IVectorise { }
-public interface IFraction
-{
-    double GetDouble();
-    int[] GetFract();
+public interface IRotateable{
+    int angleSpeed {get; set;}
+    int angle {get; set;}
 }

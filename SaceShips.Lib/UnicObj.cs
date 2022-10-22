@@ -4,15 +4,23 @@ using System.Collections.Generic;
 
 namespace SaceShips.Lib;
 
-public class UIObject : InterfaceObject
-{
-    private ConcurrentDictionary<string, dynamic> parametrs;
-    public UIObject(Dictionary<string, dynamic> p)
-    {
-        this.parametrs = new ConcurrentDictionary<string, dynamic>(p);
+
+public class MovableObject: IMoveable{
+    public Vector frontSpeed {get; set;}
+    public Vector coord {get; set;}
+    public MovableObject(Vector fs, Vector c){
+        coord = c;
+        frontSpeed = fs;
     }
-    public ConcurrentDictionary<string, dynamic> GetAllParams() { return parametrs; }
-    public dynamic GetParam(string key) { return parametrs[key]; }
-    public void SetParam(string key, dynamic value) { parametrs[key] = value; }
-    public bool ParamExist(string key) { return this.parametrs.ContainsKey(key); }
 }
+
+
+public class RotateableObject: IRotateable{
+    public int angleSpeed {get; set;}
+    public int angle {get; set;}
+    public RotateableObject(int s, int a){
+        angleSpeed = s;
+        angle = a;
+    }
+}
+
