@@ -12,7 +12,7 @@ public class FrontMove : ICommand
 
     public void action()
     {
-        this.moveable_obj.coord = this.moveable_obj.coord + this.moveable_obj.frontSpeed;
+        this.moveable_obj.coord += this.moveable_obj.frontSpeed;
     }
 }
 
@@ -28,7 +28,7 @@ public class RotateMove : ICommand
 
     public void action()
     {
-        this.moveable_obj.angle = this.moveable_obj.angle + this.moveable_obj.angleSpeed;
+        this.moveable_obj.angle += this.moveable_obj.angleSpeed;
     }
 }
 

@@ -5,8 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaceShips.Lib", "SaceShips.Lib\SaceShips.Lib.csproj", "{8604F5C0-DCB5-40A8-9337-EAB94F7933C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaceShips.Lib.Test", "SaceShips.Lib.Test\SaceShips.Lib.Test.csproj", "{8CD79547-D8BB-4AC7-80D5-CDAD8D315298}"
-EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

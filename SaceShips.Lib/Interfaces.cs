@@ -12,6 +12,6 @@ public interface IMoveable{
 }
 
 public interface IRotateable{
-    int angleSpeed {get; set;}
-    int angle {get; set;}
+    Fraction angleSpeed {get; set;}
+    Fraction angle {get; set;}
 }

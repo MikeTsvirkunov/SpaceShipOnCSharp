@@ -5,10 +5,10 @@ using System.Collections.Generic;
 namespace SaceShips.Lib;
 
 
-public class MovableObject: IMoveable{
+public class MoveableObject: IMoveable{
     public Vector frontSpeed {get; set;}
     public Vector coord {get; set;}
-    public MovableObject(Vector fs, Vector c){
+    public MoveableObject(Vector fs, Vector c){
         coord = c;
         frontSpeed = fs;
     }
@@ -16,11 +16,12 @@ public class MovableObject: IMoveable{
 
 
 public class RotateableObject: IRotateable{
-    public int angleSpeed {get; set;}
-    public int angle {get; set;}
-    public RotateableObject(int s, int a){
+    public Fraction angleSpeed {get; set;}
+    public Fraction angle {get; set;}
+    public RotateableObject(Fraction s, Fraction a){
         angleSpeed = s;
         angle = a;
     }
 }
 
+// reportgenerator -reports:"./TestResults/7134df18-0228-4551-9313-db1d475a377a/coverage.cobertura.xml" -targetdir:"coveragereport" -reporttypes:Html
