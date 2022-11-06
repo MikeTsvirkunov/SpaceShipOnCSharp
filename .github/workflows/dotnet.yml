@@ -20,6 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: cd SaceShips.Lib/ && dotnet build --no-restore
+      run: cd XUnit.Coverlet.MSBuild/ && dotnet build --no-restore
     - name: Test
       run: cd XUnit.Coverlet.Collector/ && dotnet test --collect:"XPlat Code Coverage"
