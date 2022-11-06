@@ -68,7 +68,7 @@ public class Fraction
 
     public static Fraction operator -(Fraction a, Fraction b)
     {
-        int n_up = a.up * b.down + a.down * b.up;
+        int n_up = a.up * b.down - a.down * b.up;
         int n_down = a.down * b.down;
         return new Fraction(n_up, n_down);
     }
@@ -90,12 +90,13 @@ public class Fraction
 
     public override bool Equals(object? obj)
     {
-        return base.Equals(obj);
+        if (obj is Fraction objectType) return objectType.up == this.up & objectType.down == this.down;
+        return false;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(up, down);
+        return Tuple.Create(up, down).GetHashCode(); ;
     }
 
     public int GetUp(){

@@ -24,4 +24,4 @@ public class RotateableObject: IRotateable{
     }
 }
 
-// reportgenerator -reports:"./TestResults/7134df18-0228-4551-9313-db1d475a377a/coverage.cobertura.xml" -targetdir:"coveragereport" -reporttypes:Html
+// reportgenerator -reports:"./TestResults/fbafb7b5-bead-499c-926b-142996deb039/coverage.cobertura.xml" -targetdir:"coveragereport" -reporttypes:Html
