@@ -18,7 +18,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore XUnit.Coverlet.Collector/ && dotnet restore XUnit.Coverlet.MSBuild/
     - name: Build
       run: cd XUnit.Coverlet.MSBuild/ && dotnet build --no-restore
     - name: Test
