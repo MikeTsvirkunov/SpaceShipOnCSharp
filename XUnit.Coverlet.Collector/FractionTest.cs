@@ -1,7 +1,8 @@
 using Xunit;
 // using Moq;
 using Xunit;
-using SaceShips.Lib;
+using SaceShips.Lib.Classes;
+using SaceShips.Lib.Interfaces;
 using Moq;
 using System.Collections.Generic;
 using System.Collections.Concurrent;

@@ -1,7 +1,8 @@
 using Xunit;
 // using Moq;
 using Xunit;
-using SaceShips.Lib;
+using SaceShips.Lib.Classes;
+using SaceShips.Lib.Interfaces;
 using Moq;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
@@ -41,14 +42,6 @@ public class VectorTest
         Assert.True(v1 - v2 == expected);
     }
 
-    [Fact]
-    public void Del_Vector()
-    {
-        int n = 3;
-        Vector v = new Vector(new dynamic[] { 3, -2, 1 });
-        Vector expected = new Vector(new dynamic[] { 9, -6, 3 });
-        Assert.True(n * v == expected);
-    }
 
     [Fact]
     public void Eq_NotEq_VectorTest()
@@ -100,7 +93,7 @@ public class VectorTest
     [Fact]
     public void UnEqualSizeEqualTest()
     {
-        Vector v = new Vector(new dynamic[] { 3, -2, 1});
+        Vector v = new Vector(new dynamic[] { 3, -2, 1 });
         Vector v1 = new Vector(new dynamic[] { 3, -2, 1, 4 });
         Assert.True(!v.Equals(v1));
     }
@@ -118,15 +111,7 @@ public class VectorTest
     {
         Vector v2 = new Vector(new dynamic[] { 9, -6, 3 });
         Vector v3 = new Vector(new dynamic[] { 3, -2, 1, 4 });
-        try
-        {
-            Vector x = v2 + v3;
-            Debug.Fail("Unknown How");
-        }
-        catch (ArgumentException)
-        {
-
-        }
+        Assert.Throws<ArgumentException>(() => v2 + v3);
     }
 
     [Fact]
@@ -134,15 +119,7 @@ public class VectorTest
     {
         Vector v2 = new Vector(new dynamic[] { 9, -6, 3 });
         Vector v3 = new Vector(new dynamic[] { 3, -2, 1, 4 });
-        try
-        {
-            Vector x = v2 - v3;
-            Debug.Fail("Unknown How");
-        }
-        catch (ArgumentException)
-        {
-
-        }
+        Assert.Throws<ArgumentException>(() => v2 - v3);
     }
 
 }
