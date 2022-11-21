@@ -121,5 +121,4 @@ public class VectorTest
         Vector v3 = new Vector(new dynamic[] { 3, -2, 1, 4 });
         Assert.Throws<ArgumentException>(() => v2 - v3);
     }
-
 }
