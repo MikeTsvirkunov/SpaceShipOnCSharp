@@ -221,12 +221,12 @@ var assemblies = [
   {
     "name": "SaceShips.Lib",
     "classes": [
-      { "name": "Fraction", "rp": "SaceShips.Lib_Fraction.html", "cl": 79, "ucl": 0, "cal": 79, "tl": 109, "ct": "LineCoverage", "cbm": "-", "cb": 16, "tb": 16, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [] },
-      { "name": "SaceShips.Lib.FrontMove", "rp": "SaceShips.Lib_FrontMove.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 37, "ct": "LineCoverage", "cbm": "-", "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [] },
-      { "name": "SaceShips.Lib.MoveableObject", "rp": "SaceShips.Lib_MoveableObject.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 27, "ct": "LineCoverage", "cbm": "-", "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [] },
-      { "name": "SaceShips.Lib.RotateableObject", "rp": "SaceShips.Lib_RotateableObject.html", "cl": 6, "ucl": 0, "cal": 6, "tl": 27, "ct": "LineCoverage", "cbm": "-", "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [] },
-      { "name": "SaceShips.Lib.RotateMove", "rp": "SaceShips.Lib_RotateMove.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 37, "ct": "LineCoverage", "cbm": "-", "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [] },
-      { "name": "Vector", "rp": "SaceShips.Lib_Vector.html", "cl": 75, "ucl": 0, "cal": 75, "tl": 110, "ct": "LineCoverage", "cbm": "-", "cb": 56, "tb": 56, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [] },
+      { "name": "SaceShips.Lib.Classes.Fraction", "rp": "SaceShips.Lib_Fraction.html", "cl": 79, "ucl": 0, "cal": 79, "tl": 112, "ct": "LineCoverage", "cbm": "-", "cb": 16, "tb": 16, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [] },
+      { "name": "SaceShips.Lib.Classes.FrontMove", "rp": "SaceShips.Lib_FrontMove.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 36, "ct": "LineCoverage", "cbm": "-", "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [] },
+      { "name": "SaceShips.Lib.Classes.MoveableObject", "rp": "SaceShips.Lib_MoveableObject.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 17, "ct": "LineCoverage", "cbm": "-", "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [] },
+      { "name": "SaceShips.Lib.Classes.RotateMove", "rp": "SaceShips.Lib_RotateMove.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 36, "ct": "LineCoverage", "cbm": "-", "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [] },
+      { "name": "SaceShips.Lib.Classes.Vector", "rp": "SaceShips.Lib_Vector.html", "cl": 67, "ucl": 0, "cal": 67, "tl": 105, "ct": "LineCoverage", "cbm": "-", "cb": 52, "tb": 52, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [] },
+      { "name": "SaceShips.Lib.Interfaces.RotateableObject", "rp": "SaceShips.Lib_RotateableObject.html", "cl": 7, "ucl": 0, "cal": 7, "tl": 15, "ct": "LineCoverage", "cbm": "-", "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [] },
     ]},
 ];
 
