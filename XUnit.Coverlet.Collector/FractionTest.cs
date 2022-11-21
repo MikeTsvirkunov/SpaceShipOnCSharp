@@ -123,6 +123,19 @@ public class FractTest
         var f2 = new Fraction(a2, b2);
         Assert.True(f1 != f2);
     }
+
+    [Fact]
+    public void FracEqualTest()
+    {
+        int a1 = 2;
+        int b1 = 5;
+        int a2 = 2;
+        int b2 = 5;
+        var f1 = new Fraction(a1, b1);
+        var f2 = new Fraction(a2, b2);
+        Assert.True(f1 == f2);
+    }
+
     [Fact]
     public void FracUnequalTest2()
     {
