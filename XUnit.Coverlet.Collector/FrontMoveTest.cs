@@ -29,15 +29,7 @@ public class FrontMoveTest
     {
         var spaceship_wo_speed_parametrs = new Mock<IMoveable>();
         spaceship_wo_speed_parametrs.SetupProperty(p => p.coord, new Vector(12, 5));
-        try
-        {
-            new FrontMove(spaceship_wo_speed_parametrs.Object).action();
-            Debug.Fail("Unknown Option");
-        }
-        catch (System.NullReferenceException)
-        {
-
-        }
+        Assert.Throws<System.NullReferenceException>(() => new FrontMove(spaceship_wo_speed_parametrs.Object).action());
     }
 
     [Fact]
@@ -45,29 +37,13 @@ public class FrontMoveTest
     {
         var spaceship_wo_coord_parametr = new Mock<IMoveable>();
         spaceship_wo_coord_parametr.SetupProperty(p => p.frontSpeed, new Vector(12, 5));
-        try
-        {
-            new FrontMove(spaceship_wo_coord_parametr.Object).action();
-            Debug.Fail("Unknown Option");
-        }
-        catch (System.NullReferenceException)
-        {
-
-        }
+        Assert.Throws<System.NullReferenceException>(() => new FrontMove(spaceship_wo_coord_parametr.Object).action());
     }
 
     [Fact]
     public void Test_Movement_for_Object_without_All()
     {
         var spaceship_wo_all = new Mock<IMoveable>();
-        try
-        {
-            new FrontMove(spaceship_wo_all.Object).action();
-            Debug.Fail("Unknown Option");
-        }
-        catch (System.NullReferenceException)
-        {
-
-        }
+        Assert.Throws<System.NullReferenceException>(() => new FrontMove(spaceship_wo_all.Object).action());
     }
 }
