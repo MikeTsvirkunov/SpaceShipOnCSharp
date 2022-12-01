@@ -42,6 +42,22 @@ public class VectorTest
         Assert.True(v1 - v2 == expected);
     }
 
+    [Fact]
+    public void Sum_Vector()
+    {
+        Vector v1 = new Vector(new dynamic[] { 1, 2, 1 });
+        Vector v2 = new Vector(new dynamic[] { 3, -2, 1 });
+        Vector expected = new Vector(new dynamic[] { 4, 0, 2 });
+        Assert.True(v1 + v2 == expected);
+    }
+
+    [Fact]
+    public void Sum_Vector_with_different_len()
+    {
+        Vector v1 = new Vector(new dynamic[] { 1, 2, 1 });
+        Vector v2 = new Vector(new dynamic[] { 3, -2, 1, 2 });
+        Assert.Throws<ArgumentException>(() => v1 + v2);
+    }
 
     [Fact]
     public void Eq_NotEq_VectorTest()
