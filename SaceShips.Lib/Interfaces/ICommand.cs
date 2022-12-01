@@ -4,4 +4,3 @@ public interface ICommand
 {
     void action();
 }
-

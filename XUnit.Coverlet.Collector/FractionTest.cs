@@ -157,5 +157,3 @@ public class FractTest
         Assert.Equal(f1.GetHashCode(), f2.GetHashCode());
     }
 }
-
-// dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=TestResults/*/coverage.cobertura.xml
