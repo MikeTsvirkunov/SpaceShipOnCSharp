@@ -1,6 +1,4 @@
 using Xunit;
-// using Moq;
-using Xunit;
 using SaceShips.Lib.Classes;
 using SaceShips.Lib.Interfaces;
 using Moq;
