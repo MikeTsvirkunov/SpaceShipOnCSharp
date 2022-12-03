@@ -93,7 +93,7 @@ public class VectorTest
     {
         Vector v = new Vector(new dynamic[] { 3, -2, 1, 4 });
         string s = Convert.ToString(v);
-        Assert.Equal(Convert.ToString(v), "Vector(3, -2, 1, 4)");
+        Assert.Equal("Vector(3, -2, 1, 4)", Convert.ToString(v));
     }
 
     [Fact]
@@ -134,5 +134,14 @@ public class VectorTest
         Vector v2 = new Vector(new dynamic[] { 9, -6, 3 });
         Vector v3 = new Vector(new dynamic[] { 3, -2, 1, 4 });
         Assert.Throws<ArgumentException>(() => v2 - v3);
+    }
+
+    [Fact]
+    public void EqualNullTest()
+    {
+        Vector v = new Vector(new dynamic[] { 3, -2, 1 });
+        Vector? v1 = null;
+        Assert.False(v.Equals(v1));
+        Assert.False(v.Equals(null));
     }
 }

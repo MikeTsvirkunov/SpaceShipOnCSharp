@@ -87,11 +87,14 @@ public class Vector
 
     public override bool Equals(object? obj)
     {
-        Vector? a = obj as Vector;
-        if (a.Size != this.Size) return false;
-        for (int i = 0; i < a.Size; i++) if (a.coords[i] != this.coords[i]) return false;
-        return true;
-        
+        if (obj is not null)
+        {
+            Vector a = (Vector)obj;
+            if (a.Size != this.Size) return false;
+            for (int i = 0; i < a.Size; i++) if (a.coords[i] != this.coords[i]) return false;
+            return true;
+        }
+        return false;
     }
 
     public override int GetHashCode()
