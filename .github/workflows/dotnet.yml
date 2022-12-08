@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master" , "MikeTsvirkunovLaba1" ]
   pull_request:
     branches: [ "master" ]
 
@@ -18,9 +18,15 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore XUnit.Coverlet.Collector/ && dotnet restore XUnit.Coverlet.MSBuild/
     - name: Build
-      run: dotnet build --no-restore
+      run: cd XUnit.Coverlet.MSBuild/ && dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
-
+      run: cd XUnit.Coverlet.Collector/ && dotnet test --collect:"XPlat Code Coverage"
+    - name: Upload coverage reports to Codecov
+      run: |
+        # Replace `linux` below with the appropriate OS
+        # Options are `alpine`, `linux`, `macos`, `windows`
+        curl -Os https://uploader.codecov.io/latest/linux/codecov
+        chmod +x codecov
+        ./codecov -t ${CODECOV_TOKEN}
