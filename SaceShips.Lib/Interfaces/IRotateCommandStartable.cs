@@ -1,11 +1,11 @@
-// using SaceShips.Lib.Classes;
+using SaceShips.Lib.Classes;
 namespace SaceShips.Lib.Interfaces;
 
-public interface IMoveCommandEndable: ICommand, IInjectable
+public interface IRotateCommandStartable: ICommand
 {
-    object Obj { get; set; }
-    ICommand Cmd { get; set; }
-    Queue<IMoveCommandEndable> queue { get; set; }
+    IUObject obj { get; }
+    Fraction angleSpeed { get; }
+    Queue<ICommand> queue { get; }
 }
 
 
