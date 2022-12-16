@@ -4,15 +4,15 @@ namespace SaceShips.Lib.Classes;
 
 public class StartRotateCommand : ICommand
 {
-    private IRotateCommandStartable moveable_obj;
+    ISpeedChangeable obj;
 
-    public StartRotateCommand(IRotateable o)
+    public StartRotateCommand(ISpeedChangeable obj)
     {
-        this.moveable_obj = o;
+        this.obj = obj;
     }
 
     public void action()
     {
-        
+        // this.rotateable_obj.angle += this.rotateable_obj.angleSpeed;
     }
 }
