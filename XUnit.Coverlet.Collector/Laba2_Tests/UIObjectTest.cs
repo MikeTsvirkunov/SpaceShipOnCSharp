@@ -22,10 +22,10 @@ public class UIObjectTest
         var CmdExample = new Mock<SaceShips.Lib.Interfaces.ICommand>();
         var ComeBackCommmandStrategy = new Mock<IStartegy>();
         var ComeBackQueue = new Mock<IStartegy>();
-
+        var queue = new Queue<SaceShips.Lib.Interfaces.ICommand>();
         CmdExample.Setup(p => p.action());
         ComeBackCommmandStrategy.Setup(p => p.execute(It.IsAny<object[]>())).Returns(CmdExample.Object);
-        ComeBackCommmandStrategy.Setup(p => p.execute()).Returns(new Queue<SaceShips.Lib.Interfaces.ICommand>());
+        ComeBackQueue.Setup(p => p.execute()).Returns(queue);
 
         // Return rotate
         var ComeBackRotateCommmandStrategy = new Mock<IStartegy>();
