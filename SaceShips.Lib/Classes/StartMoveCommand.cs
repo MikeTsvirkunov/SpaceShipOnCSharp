@@ -14,10 +14,10 @@ public class StartRotateCommand : SaceShips.Lib.Interfaces.ICommand
     public void action()
     {
         //give to object speed
-        // Hwdtech.IoC.Resolve<Hwdtech.ICommand>("SpaceShip.Lib.Comands.Set", obj.obj, obj.set_property("angleSpeed"), obj.speed_change);
+        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.Set", obj.obj, "angleSpeed", obj.speed_change);
         // return some command
-        var smth_cmd = Hwdtech.IoC.Resolve<Hwdtech.ICommand>("SpaceShip.Lib.Comands.Rotate", obj.obj);
+        var smth_cmd = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.Rotate", obj.obj);
         // push cmd to queue
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("SpaceShip.Vars.Equeue", Hwdtech.IoC.Resolve<Hwdtech.ICommand>("SpaceShip.Vars.Queue", obj.obj), smth_cmd);
+        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.Enqueue", Hwdtech.IoC.Resolve<Queue<SaceShips.Lib.Interfaces.ICommand>>("SpaceShip.Vars.Queue", obj.obj), smth_cmd);
     }
 }
