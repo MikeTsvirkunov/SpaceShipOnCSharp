@@ -38,8 +38,6 @@ public class UIObjectTest
         var k = new RotateMove(spaceship_w_speed_and_angle_parametrs.Object);
         ComeBackRotateCommmandStrategy.Setup(p => p.execute(It.IsAny<object[]>())).Returns(new RotateMove(spaceship_w_speed_and_angle_parametrs.Object));
 
-
-        // Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.Rotate", (object[] args) => ComeBackRotateCommmandStrategy.Object.execute(args[0])).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.Set", (object[] args) => ComeBackCommmandStrategy.Object.execute(args)).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.Rotate", (object[] args) => ComeBackRotateCommmandStrategy.Object.execute(args)).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Vars.Queue", (object[] args) => ComeBackQueue.Object.execute()).Execute();
@@ -85,9 +83,8 @@ public class UIObjectTest
         RotComStart.SetupGet(x => x.angleSpeed).Throws(new Exception()).Verifiable();
         RotComStart.SetupGet(x => x.obj).Returns(It.IsAny<IUObject>).Verifiable();
         RotComStart.SetupGet(x => x.queue).Returns(It.IsAny<Queue<SaceShips.Lib.Interfaces.ICommand>>).Verifiable();
-        var go_round = new StartRotateCommand(RotComStart.Object);
 
-        Assert.Throws<System.Exception>(() => go_round.action());
+        Assert.Throws<System.Exception>(() => new StartRotateCommand(RotComStart.Object).action());
     }
 
     [Fact]
@@ -103,9 +100,8 @@ public class UIObjectTest
         RotComStart.SetupGet(x => x.angleSpeed).Throws(new Exception()).Verifiable();
         RotComStart.SetupGet(x => x.obj).Returns(It.IsAny<IUObject>).Verifiable();
         RotComStart.SetupGet(x => x.queue).Returns(It.IsAny<Queue<SaceShips.Lib.Interfaces.ICommand>>).Verifiable();
-        var go_round = new StartRotateCommand(RotComStart.Object);
 
-        Assert.Throws<System.Exception>(() => go_round.action());
+        Assert.Throws<System.Exception>(() => new StartRotateCommand(RotComStart.Object).action());
     }
 
     [Fact]
@@ -123,8 +119,7 @@ public class UIObjectTest
         RotComStart.SetupGet(x => x.angleSpeed).Returns(It.IsAny<Fraction>()).Verifiable();
         RotComStart.SetupGet(x => x.obj).Throws(new Exception()).Verifiable();
         RotComStart.SetupGet(x => x.queue).Returns(It.IsAny<Queue<SaceShips.Lib.Interfaces.ICommand>>).Verifiable();
-        var go_round = new StartRotateCommand(RotComStart.Object);
 
-        Assert.Throws<System.Exception>(() => go_round.action());
+        Assert.Throws<System.Exception>(() => new StartRotateCommand(RotComStart.Object).action());
     }
 }
