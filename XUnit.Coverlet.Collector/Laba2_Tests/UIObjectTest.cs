@@ -50,25 +50,123 @@ public class UIObjectTest
     {
         Init_Score_Env();
 
-        // var x = new Dictionary<string, object>();
-        // x["angleSpeed"] = new Fraction(90, 1);
-        // x["angle"] = new Fraction(45, 1);
+        var x = new Dictionary<string, object>();
 
         var speed_changeable = new Mock<ISpeedChangeable>();
+        var UObject = new Mock<IUObject>();
+        var RotComStart = new Mock<IRotateCommandStartable>();
         // var spaceship = new Mock<SaceShips.Lib.Interfaces.IRotateable>();
         // spaceship.SetupGet(p => p.angle).Returns((Fraction)x["angleSpeed"]).Verifiable();
         // spaceship.SetupGet(p => p.angleSpeed).Returns((Fraction)x["angle"]).Verifiable();
-
-        var UObject = new Mock<IUObject>();
-        // UObject.Setup(k => k.set_property("angleSpeed", It.IsAny<Fraction>())).Callback((string key, Fraction speed) => x[key] = speed).Returns(x["angleSpeed"]);
+        // RotComStart.SetupGet(p => p.angleSpeed).Returns((Fraction)x["angleSpeed"]).Verifiable();
+        // RotComStart.SetupGet(p => p.angleSpeed).Returns((Fraction)x["angleSpeed"]).Verifiable();
+        // var speed_change = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+        // speed_change.Setup(k = k.action()).Callback()
+        // UObject.Setup(k => k.get_property("angleSpeed")).Returns(new Fraction(90, 1));
         // UObject.Setup(x => x.set_property("angleSpeed")).Returns<Fraction>(new Fraction(90, 1)).Verifiable();
 
-        speed_changeable.SetupGet(x => x.obj).Returns(UObject.Object);
+        speed_changeable.SetupGet(x => x.obj).Returns(UObject.Object).Verifiable();
         speed_changeable.SetupGet(x => x.speed_change).Returns(new Fraction(90, 1)).Verifiable();
+        RotComStart.SetupGet(x => x.angleSpeed).Returns(It.IsAny<Fraction>()).Verifiable();
+        RotComStart.SetupGet(x => x.obj).Returns(It.IsAny<IUObject>).Verifiable();
+        RotComStart.SetupGet(x => x.queue).Returns(It.IsAny<Queue<SaceShips.Lib.Interfaces.ICommand>>).Verifiable();
         var go_round = new StartRotateCommand(speed_changeable.Object);
 
         // var go_round = new StartRotateCommand(spaceship.Object);
         go_round.action();
         speed_changeable.VerifyAll();
+    }
+
+    [Fact]
+    public void StartCommand_Exe_WO_Object()
+    {
+        Init_Score_Env();
+
+        var x = new Dictionary<string, object>();
+
+        var speed_changeable = new Mock<ISpeedChangeable>();
+        var UObject = new Mock<IUObject>();
+        var RotComStart = new Mock<IRotateCommandStartable>();
+        // var spaceship = new Mock<SaceShips.Lib.Interfaces.IRotateable>();
+        // spaceship.SetupGet(p => p.angle).Returns((Fraction)x["angleSpeed"]).Verifiable();
+        // spaceship.SetupGet(p => p.angleSpeed).Returns((Fraction)x["angle"]).Verifiable();
+        // RotComStart.SetupGet(p => p.angleSpeed).Returns((Fraction)x["angleSpeed"]).Verifiable();
+        // RotComStart.SetupGet(p => p.angleSpeed).Returns((Fraction)x["angleSpeed"]).Verifiable();
+        // var speed_change = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+        // speed_change.Setup(k = k.action()).Callback()
+        // UObject.Setup(k => k.get_property("angleSpeed")).Returns(new Fraction(90, 1));
+        // UObject.Setup(x => x.set_property("angleSpeed")).Returns<Fraction>(new Fraction(90, 1)).Verifiable();
+
+        speed_changeable.SetupGet(x => x.obj).Throws(new Exception()).Verifiable();
+        speed_changeable.SetupGet(x => x.speed_change).Returns(new Fraction(90, 1)).Verifiable();
+        RotComStart.SetupGet(x => x.angleSpeed).Returns(It.IsAny<Fraction>()).Verifiable();
+        RotComStart.SetupGet(x => x.obj).Returns(It.IsAny<IUObject>).Verifiable();
+        RotComStart.SetupGet(x => x.queue).Returns(It.IsAny<Queue<SaceShips.Lib.Interfaces.ICommand>>).Verifiable();
+        var go_round = new StartRotateCommand(speed_changeable.Object);
+
+        // var go_round = new StartRotateCommand(spaceship.Object);
+        Assert.Throws<System.Exception>(() => go_round.action());
+    }
+
+    [Fact]
+    public void StartCommand_Exe_WO_Speed()
+    {
+        Init_Score_Env();
+
+        var x = new Dictionary<string, object>();
+
+        var speed_changeable = new Mock<ISpeedChangeable>();
+        var UObject = new Mock<IUObject>();
+        var RotComStart = new Mock<IRotateCommandStartable>();
+        // var spaceship = new Mock<SaceShips.Lib.Interfaces.IRotateable>();
+        // spaceship.SetupGet(p => p.angle).Returns((Fraction)x["angleSpeed"]).Verifiable();
+        // spaceship.SetupGet(p => p.angleSpeed).Returns((Fraction)x["angle"]).Verifiable();
+        // RotComStart.SetupGet(p => p.angleSpeed).Returns((Fraction)x["angleSpeed"]).Verifiable();
+        // RotComStart.SetupGet(p => p.angleSpeed).Returns((Fraction)x["angleSpeed"]).Verifiable();
+        // var speed_change = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+        // speed_change.Setup(k = k.action()).Callback()
+        // UObject.Setup(k => k.get_property("angleSpeed")).Returns(new Fraction(90, 1));
+        // UObject.Setup(x => x.set_property("angleSpeed")).Returns<Fraction>(new Fraction(90, 1)).Verifiable();
+
+        speed_changeable.SetupGet(x => x.obj).Returns(UObject.Object).Verifiable();
+        speed_changeable.SetupGet(x => x.speed_change).Throws(new Exception()).Verifiable();
+        RotComStart.SetupGet(x => x.angleSpeed).Returns(It.IsAny<Fraction>()).Verifiable();
+        RotComStart.SetupGet(x => x.obj).Returns(It.IsAny<IUObject>).Verifiable();
+        RotComStart.SetupGet(x => x.queue).Returns(It.IsAny<Queue<SaceShips.Lib.Interfaces.ICommand>>).Verifiable();
+        var go_round = new StartRotateCommand(speed_changeable.Object);
+
+        // var go_round = new StartRotateCommand(spaceship.Object);
+        Assert.Throws<System.Exception>(() => go_round.action());
+    }
+
+    [Fact]
+    public void StartCommand_Exe_WO_All()
+    {
+        Init_Score_Env();
+
+        var x = new Dictionary<string, object>();
+
+        var speed_changeable = new Mock<ISpeedChangeable>();
+        var UObject = new Mock<IUObject>();
+        var RotComStart = new Mock<IRotateCommandStartable>();
+        // var spaceship = new Mock<SaceShips.Lib.Interfaces.IRotateable>();
+        // spaceship.SetupGet(p => p.angle).Returns((Fraction)x["angleSpeed"]).Verifiable();
+        // spaceship.SetupGet(p => p.angleSpeed).Returns((Fraction)x["angle"]).Verifiable();
+        // RotComStart.SetupGet(p => p.angleSpeed).Returns((Fraction)x["angleSpeed"]).Verifiable();
+        // RotComStart.SetupGet(p => p.angleSpeed).Returns((Fraction)x["angleSpeed"]).Verifiable();
+        // var speed_change = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+        // speed_change.Setup(k = k.action()).Callback()
+        // UObject.Setup(k => k.get_property("angleSpeed")).Returns(new Fraction(90, 1));
+        // UObject.Setup(x => x.set_property("angleSpeed")).Returns<Fraction>(new Fraction(90, 1)).Verifiable();
+
+        speed_changeable.SetupGet(x => x.obj).Throws(new Exception()).Verifiable();
+        speed_changeable.SetupGet(x => x.speed_change).Throws(new Exception()).Verifiable();
+        RotComStart.SetupGet(x => x.angleSpeed).Returns(It.IsAny<Fraction>()).Verifiable();
+        RotComStart.SetupGet(x => x.obj).Returns(It.IsAny<IUObject>).Verifiable();
+        RotComStart.SetupGet(x => x.queue).Returns(It.IsAny<Queue<SaceShips.Lib.Interfaces.ICommand>>).Verifiable();
+        var go_round = new StartRotateCommand(speed_changeable.Object);
+
+        // var go_round = new StartRotateCommand(spaceship.Object);
+        Assert.Throws<System.Exception>(() => go_round.action());
     }
 }
