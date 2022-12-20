@@ -5,9 +5,9 @@ using Hwdtech;
 
 public class StartRotateCommand : SaceShips.Lib.Interfaces.ICommand
 {
-    ISpeedChangeable obj;
+    IRotateCommandStartable obj;
 
-    public StartRotateCommand(ISpeedChangeable obj)
+    public StartRotateCommand(IRotateCommandStartable obj)
     {
         this.obj = obj;
     }
@@ -15,10 +15,14 @@ public class StartRotateCommand : SaceShips.Lib.Interfaces.ICommand
     public void action()
     {
         //give to object speed
-        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.Set", obj.obj, "angleSpeed", obj.speed_change);
+
+        // Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.Set", obj.obj, "angleSpeed", obj.speed_change);
+        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.ChangeAngleSpeed", this.obj.obj, this.obj.angleSpeed);
         // return some command
         var smth_cmd = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.Rotate", obj.obj);
         // push cmd to queue
-        Hwdtech.IoC.Resolve<Queue<SaceShips.Lib.Interfaces.ICommand>>("SpaceShip.Vars.Queue").Enqueue(smth_cmd);
+        var q = Hwdtech.IoC.Resolve<Queue<SaceShips.Lib.Interfaces.ICommand>>("SpaceShip.Vars.Queue");
+        // this.obj.queue = q;
+        this.obj.queue.Enqueue(smth_cmd);
     }
 }
