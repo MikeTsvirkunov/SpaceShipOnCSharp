@@ -14,6 +14,7 @@ public class UIObjectTest
 {
     public void Init_Score_Env()
     {
+        [Fact]
         // Create Scope
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
