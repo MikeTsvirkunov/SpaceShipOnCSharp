@@ -16,7 +16,6 @@ public class CSVReader: ICommand
 
     public void action()
     {
-        IList<string> listHEADERS;
         using (var reader = new StreamReader(fileway))
         {
             IList<string> listHEADERS = reader.ReadLine().Split("; ");
