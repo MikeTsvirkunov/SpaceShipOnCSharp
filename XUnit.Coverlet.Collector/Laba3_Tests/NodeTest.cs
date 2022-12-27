@@ -7,8 +7,10 @@ using System.Collections.Concurrent;
 using System;
 using System.Diagnostics;
 using Hwdtech;
+// using Hwdtech.IoC;
+// using Hwdtech.ScopeBasedIoCImplementation;
 namespace XUnit.Coverlet.Collector;
-public class TreeTest
+public class TreeNodeTest
 {
     [Fact]
     public void Init_Score_Env()
@@ -18,17 +20,18 @@ public class TreeTest
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Node", (object[] args) => new TreeNode((Func<object, object>)args[0])).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.NodeWithNexts", (object[] args) => new TreeNode((Func<object, object>)args[0], (Dictionary<object, object>)args[1])).Execute();
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Tree", (object[] args) => new Tree((Func<object, object>)args[0])).Execute();
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.CSVReader", (object[] args) => new CSVReader((string)args[0], (string)args[1])).Execute();
     }
 
     [Fact]
-    public void Check_Hash(){
+    public void Check_Hash()
+    {
         Init_Score_Env();
-        CSVReader testingCSVReader = (CSVReader)Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.CSVReader", @"./../../../Laba3_Tests/colision_vectors.csv", "; ");
-        testingCSVReader.action();
-        var table_for_teach = testingCSVReader.get_table();
         Func<object, object> func_for_test = (object z) => z;
-        var tree_testing = Hwdtech.IoC.Resolve<Tree>("SpaceShip.Lib.Get.Tree", func_for_test);
+        var next_testing_node = Hwdtech.IoC.Resolve<TreeNode>("SpaceShip.Lib.Get.Node", func_for_test);
+        Dictionary<object, object> next_nodes = new Dictionary<object, object>() {{"a", next_testing_node }, {"b", "a" }};
+        var testing_node = Hwdtech.IoC.Resolve<TreeNode>("SpaceShip.Lib.Get.NodeWithNexts", func_for_test, next_nodes);
+        Assert.Equal(testing_node.step_forward("a"), next_testing_node);
+        Assert.Equal(testing_node.step_forward("b"), "a");
+        Assert.Equal(testing_node.step_forward("c"), null);
     }
 }
