@@ -24,11 +24,22 @@ public class TreeTest
 
     [Fact]
     public void Check_Hash(){
+        new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
         Init_Score_Env();
         CSVReader testingCSVReader = (CSVReader)Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.CSVReader", @"./../../../Laba3_Tests/colision_vectors.csv", "; ");
         testingCSVReader.action();
         var table_for_teach = testingCSVReader.get_table();
         Func<object, object> func_for_test = (object z) => z;
         var tree_testing = Hwdtech.IoC.Resolve<Tree>("SpaceShip.Lib.Get.Tree", func_for_test);
+        var list_of_features = new List<List<object>>();
+        var results = new List<object>();
+        foreach (var item in table_for_teach)
+        {
+            list_of_features.Add((new List<object>(item.Values)).GetRange(0, item.Count-2));
+            results.Add((new List<object>(item.Values))[item.Count - 1]);
+        }
+
+        tree_testing.teach(list_of_features, results);
     }
 }

@@ -8,8 +8,9 @@ public class Tree
     public Dictionary<object, object> first_layer;
     public Tree(Func<object, object> f_decision){
         func_of_check = f_decision;
+        first_layer = new Dictionary<object, object>();
     }
-    void teach(List<List<object>> featers, List<object> ansers){
+    public void teach(List<List<object>> featers, List<object> ansers){
         var x = Hwdtech.IoC.Resolve<TreeNode>("SpaceShip.Lib.Get.Node", func_of_check);
         int counter;
         int stage = 0;
