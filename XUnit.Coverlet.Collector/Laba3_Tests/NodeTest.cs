@@ -33,5 +33,6 @@ public class TreeNodeTest
         Assert.Equal(next_testing_node, testing_node.step_forward("a"));
         Assert.Equal("a", testing_node.step_forward("b"));
         Assert.Equal(null, testing_node.step_forward("c"));
+        Assert.True(null == testing_node.step_forward("c"));
     }
 }
