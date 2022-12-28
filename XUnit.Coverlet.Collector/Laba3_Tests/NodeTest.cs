@@ -23,7 +23,7 @@ public class TreeNodeTest
     }
 
     [Fact]
-    public void Check_Hash()
+    public void check_node()
     {
         Init_Score_Env();
         Func<object, object> func_for_test = (object z) => z;

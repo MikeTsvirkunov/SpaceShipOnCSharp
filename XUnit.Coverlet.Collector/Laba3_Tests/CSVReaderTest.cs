@@ -34,12 +34,11 @@ public class CSVReaderTest
             new Dictionary<string, object>(){ {"x1", "1"}, {"y1", "4"}, {"vx1", "8"}, {"vy1", "9"}, {"x2", "10"}, {"y2", "1"}, {"vx2", "3"}, {"vy2", "9"}, {"c", "1"}, },
             new Dictionary<string, object>(){ {"x1", "1"}, {"y1", "2"}, {"vx1", "4"}, {"vy1", "5"}, {"x2", "7"}, {"y2", "10"}, {"vx2", "5"}, {"vy2", "6"}, {"c", "0"}, }
         };
-
         Assert.Equal(expected_table, testing_table);
     }
 
     [Fact]
-    public void CSVReaderTestWIncorrectWay()
+    public void CSVReader_test_with_incorrectWay()
     {
         Init_Score_Env();
         CSVReader testingCSVReader = (CSVReader)Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.CSVReader", @"rubish", "; ");

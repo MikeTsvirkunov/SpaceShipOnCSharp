@@ -8,6 +8,8 @@ using System;
 using System.Diagnostics;
 using Hwdtech;
 namespace XUnit.Coverlet.Collector;
+using System.Linq;
+
 public class TreeTest
 {
     [Fact]
@@ -37,11 +39,14 @@ public class TreeTest
         foreach (var item in table_for_teach)
         {
             var feat = new List<object>(item.Values);
-            feat.ForEach(c => c = c.ToString());
-            list_of_features.Add(feat.GetRange(0, item.Count-2));
+            feat.ForEach(c => c = Int32.Parse(c.ToString()));
+            list_of_features.Add(feat.GetRange(0, feat.Count-2));
             results.Add((new List<object>(feat))[feat.Count - 1]);
         }
         tree_testing.teach(list_of_features, results);
-        Assert.Equal(tree_testing.get_solution(list_of_features[0]), results[0]);
+        foreach (var item in list_of_features.Zip(results, (k, v) => new KeyValuePair<List<object>, object>(k, v)))
+        {
+            Assert.Equal(tree_testing.get_solution(item.Key), item.Value);
+        }
     }
 }
