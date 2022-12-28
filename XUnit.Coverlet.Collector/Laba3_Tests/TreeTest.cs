@@ -23,7 +23,7 @@ public class TreeTest
     }
 
     [Fact]
-    public void Check_Hash(){
+    public void check_teaching_of_tree(){
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
         Init_Score_Env();
@@ -42,5 +42,6 @@ public class TreeTest
             results.Add((new List<object>(feat))[feat.Count - 1]);
         }
         tree_testing.teach(list_of_features, results);
+        Assert.Equal(tree_testing.get_solution(list_of_features[0]), results[0]);
     }
 }
