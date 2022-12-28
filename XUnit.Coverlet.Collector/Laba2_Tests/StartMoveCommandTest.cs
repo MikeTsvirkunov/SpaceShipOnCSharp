@@ -39,7 +39,6 @@ public class UIObjectTest
         var k = new RotateMove(spaceship_w_speed_and_angle_parametrs.Object);
         ComeBackRotateCommmandStrategy.Setup(p => p.execute(It.IsAny<object[]>())).Returns(new RotateMove(spaceship_w_speed_and_angle_parametrs.Object));
 
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.Set", (object[] args) => ComeBackCommmandStrategy.Object.execute(args)).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.Rotate", (object[] args) => ComeBackRotateCommmandStrategy.Object.execute(args)).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Vars.Queue", (object[] args) => ComeBackQueue.Object.execute()).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.ChangeAngleSpeed", (object[] args) => ComeBackChangeAngleSpeedStrategy.Object.execute(args)).Execute();
