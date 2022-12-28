@@ -20,13 +20,27 @@ public class Tree
             first_layer.TryAdd(func_of_check(item[0]), (object)Hwdtech.IoC.Resolve<TreeNode>("SpaceShip.Lib.Get.Node", func_of_check));
             first_layer.TryGetValue(func_of_check(item[0]), out flag);
             counter = 0; 
-            foreach (var subitem in item.GroupBy(x => counter == 0 & counter++ != item.Count))
+            foreach (var subitem in item.GetRange(1, item.Count - 3))
             {
-                ((TreeNode)flag).nexts.TryAdd(func_of_check(item[0]), (object)Hwdtech.IoC.Resolve<TreeNode>("SpaceShip.Lib.Get.Node", func_of_check));
-                ((TreeNode)flag).nexts.TryGetValue(func_of_check(item[0]), out flag);
+                ((TreeNode)flag).nexts.TryAdd(func_of_check(subitem), (object)Hwdtech.IoC.Resolve<TreeNode>("SpaceShip.Lib.Get.Node", func_of_check));
+                ((TreeNode)flag).nexts.TryGetValue(func_of_check(subitem), out flag);
             }
-            ((TreeNode)flag).nexts.Add(func_of_check(item[0]), (object)ansers[stage]);
+            ((TreeNode)flag).nexts.Add(func_of_check(item[item.Count -1]), (object)ansers[stage]);
             stage++;
         }
+    }
+
+    public object get_solution(List<object> obj)
+    {
+        // obj[0]
+        object flag;
+        first_layer.TryGetValue(func_of_check(obj[0]), out flag);
+        if (flag == null) return null;
+        foreach (var item in obj.GetRange(1, obj.Count - 2))
+        {
+            ((TreeNode)flag).nexts.TryGetValue(func_of_check(item), out flag);
+            if (flag == null) return null;
+        }
+        return flag;
     }
 }

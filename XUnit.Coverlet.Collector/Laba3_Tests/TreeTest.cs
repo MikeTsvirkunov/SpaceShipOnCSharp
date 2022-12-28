@@ -36,10 +36,11 @@ public class TreeTest
         var results = new List<object>();
         foreach (var item in table_for_teach)
         {
-            list_of_features.Add((new List<object>(item.Values)).GetRange(0, item.Count-2));
-            results.Add((new List<object>(item.Values))[item.Count - 1]);
+            var feat = new List<object>(item.Values);
+            feat.ForEach(c => c = c.ToString());
+            list_of_features.Add(feat.GetRange(0, item.Count-2));
+            results.Add((new List<object>(feat))[feat.Count - 1]);
         }
-
         tree_testing.teach(list_of_features, results);
     }
 }
