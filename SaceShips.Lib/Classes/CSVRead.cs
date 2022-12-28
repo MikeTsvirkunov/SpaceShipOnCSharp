@@ -20,7 +20,7 @@ public class CSVReader: ICommand
     {
         using (var reader = new StreamReader(fileway))
         {
-            IList<string> listHEADERS = reader.ReadLine().Split("; ");
+            IList<string>? listHEADERS = reader.ReadLine().Split("; ");
             
             while (!reader.EndOfStream)
             {

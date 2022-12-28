@@ -6,7 +6,7 @@ public class TreeNode: ISource
 {
     private Func<object, object> func_of_check;
     public Dictionary<object, object> nexts {set; get;}
-    public TreeNode(Func<object, object> f_decision, Dictionary<object, object> n = null)
+    public TreeNode(Func<object, object> f_decision, Dictionary<object, object>? n = null)
     {
         nexts = n ?? new Dictionary<object, object>();
         func_of_check = f_decision;
