@@ -30,8 +30,8 @@ public class TreeNodeTest
         var next_testing_node = Hwdtech.IoC.Resolve<TreeNode>("SpaceShip.Lib.Get.Node", func_for_test);
         Dictionary<object, object> next_nodes = new Dictionary<object, object>() {{"a", next_testing_node }, {"b", "a" }};
         var testing_node = Hwdtech.IoC.Resolve<TreeNode>("SpaceShip.Lib.Get.NodeWithNexts", func_for_test, next_nodes);
-        Assert.Equal(testing_node.step_forward("a"), next_testing_node);
-        Assert.Equal(testing_node.step_forward("b"), "a");
-        Assert.Equal(testing_node.step_forward("c"), null);
+        Assert.Equal(next_testing_node, testing_node.step_forward("a"));
+        Assert.Equal("a", testing_node.step_forward("b"));
+        Assert.Equal(null, testing_node.step_forward("c"));
     }
 }
