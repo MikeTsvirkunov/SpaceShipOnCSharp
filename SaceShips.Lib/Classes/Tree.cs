@@ -35,11 +35,11 @@ public class Tree
         // obj[0]
         object flag;
         first_layer.TryGetValue(func_of_check(obj[0]), out flag);
-        // if (flag == null) return null;
+        if (flag == null) return null;
         foreach (var item in obj.GetRange(1, obj.Count-1))
         {
             ((TreeNode)flag).nexts.TryGetValue(func_of_check(item), out flag);
-            if (flag == null) return new object[]{item, flag, obj.GetRange(1, obj.Count) };
+            if (flag == null) return flag;
         }
         return flag;
     }

@@ -48,5 +48,7 @@ public class TreeTest
         {
             Assert.Equal(tree_testing.get_solution(item.Key), item.Value);
         }
+
+        Assert.Equal(tree_testing.get_solution(new List<object>(){0, 0, 0, 0}), null);
     }
 }
