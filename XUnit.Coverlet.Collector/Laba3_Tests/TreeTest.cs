@@ -21,7 +21,11 @@ public class TreeTest
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Node", (object[] args) => new TreeNode((Func<object, object>)args[0])).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.NodeWithNexts", (object[] args) => new TreeNode((Func<object, object>)args[0], (Dictionary<object, object>)args[1])).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Tree", (object[] args) => new Tree((Func<object, object>)args[0])).Execute();
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.CSVReader", (object[] args) => new CSVReader((string)args[0], (string)args[1])).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.CheckingDictionary", (object[] args) => new List<Dictionary<string, object>>(){
+            new Dictionary<string, object>(){ {"x1", "4"}, {"y1", "7"}, {"vx1", "7"}, {"vy1", "2"}, {"x2", "2"}, {"y2", "9"}, {"vx2", "9"}, {"vy2", "2"}, {"c", "0"}, },
+            new Dictionary<string, object>(){ {"x1", "1"}, {"y1", "4"}, {"vx1", "8"}, {"vy1", "9"}, {"x2", "10"}, {"y2", "1"}, {"vx2", "3"}, {"vy2", "9"}, {"c", "1"}, },
+            new Dictionary<string, object>(){ {"x1", "1"}, {"y1", "2"}, {"vx1", "4"}, {"vy1", "5"}, {"x2", "7"}, {"y2", "10"}, {"vx2", "5"}, {"vy2", "6"}, {"c", "0"}, }
+        }).Execute();
     }
 
     [Fact]
@@ -29,9 +33,7 @@ public class TreeTest
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
         Init_Score_Env();
-        CSVReader testingCSVReader = (CSVReader)Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.CSVReader", @"./../../../Laba3_Tests/colision_vectors.csv", "; ");
-        testingCSVReader.action();
-        var table_for_teach = testingCSVReader.get_table();
+        var table_for_teach = Hwdtech.IoC.Resolve<List<Dictionary<string, object>>>("SpaceShip.Lib.Get.CheckingDictionary");
         Func<object, object> func_for_test = (object z) => z;
         var tree_testing = Hwdtech.IoC.Resolve<Tree>("SpaceShip.Lib.Get.Tree", func_for_test);
         var list_of_features = new List<List<object>>();
