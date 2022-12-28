@@ -32,7 +32,6 @@ public class TreeNodeTest
         var testing_node = Hwdtech.IoC.Resolve<TreeNode>("SpaceShip.Lib.Get.NodeWithNexts", func_for_test, next_nodes);
         Assert.Equal(next_testing_node, testing_node.step_forward("a"));
         Assert.Equal("a", testing_node.step_forward("b"));
-        Assert.Equal(null, testing_node.step_forward("c"));
         Assert.True(null == testing_node.step_forward("c"));
     }
 }

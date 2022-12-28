@@ -28,7 +28,7 @@ public class Tree
         }
     }
 
-    public object get_solution(List<object> obj)
+    public object? get_solution(List<object> obj)
     {
         // obj[0]
         object flag;

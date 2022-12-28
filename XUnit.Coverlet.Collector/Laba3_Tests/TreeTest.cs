@@ -39,7 +39,7 @@ public class TreeTest
         foreach (var item in table_for_teach)
         {
             var feat = new List<object>(item.Values);
-            feat.ForEach(c => c = Int32.Parse(c.ToString()));
+            feat.ForEach(c => c = Int32.Parse((string?)c));
             list_of_features.Add(feat.GetRange(0, feat.Count-2));
             results.Add((new List<object>(feat))[feat.Count - 1]);
         }
@@ -49,6 +49,6 @@ public class TreeTest
             Assert.Equal(tree_testing.get_solution(item.Key), item.Value);
         }
 
-        Assert.Equal(tree_testing.get_solution(new List<object>(){0, 0, 0, 0}), null);
+        Assert.True(tree_testing.get_solution(new List<object>(){0, 0, 0, 0}) == null);
     }
 }
