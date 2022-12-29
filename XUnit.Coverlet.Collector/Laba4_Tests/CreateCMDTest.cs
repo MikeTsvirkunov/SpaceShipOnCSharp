@@ -16,7 +16,7 @@ public class CreatCMDTest
     {
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.GenerableComand", (object[] args) => new GenerableComand((IUObject)args[0], (string[])args[1])).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.MacroCommand", (object[] args) => new MacroCommand((List<SaceShips.Lib.Interfaces.ICommand>)args[0])).Execute();
     }
 
     [Fact]
@@ -31,13 +31,9 @@ public class CreatCMDTest
         cmd3.Setup(p => p.action());
         var cmd4 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
         cmd4.Setup(p => p.action()).Verifiable();
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.Cmd1", (object[] args) => cmd1.Object).Execute();
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.Cmd2", (object[] args) => cmd2.Object).Execute();
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.Cmd3", (object[] args) => cmd3.Object).Execute();
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.Cmd4", (object[] args) => cmd4.Object).Execute();
         var UObject = new Mock<IUObject>();
-        var checking_list_of_functions = new string[]{"SpaceShip.Lib.Comands.Cmd1", "SpaceShip.Lib.Comands.Cmd2", "SpaceShip.Lib.Comands.Cmd3", "SpaceShip.Lib.Comands.Cmd4"};
-        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.GenerableComand", UObject.Object, checking_list_of_functions).action();
+        List<SaceShips.Lib.Interfaces.ICommand> mass_of_checking_cmds = new List<SaceShips.Lib.Interfaces.ICommand>(){cmd1.Object, cmd2.Object, cmd3.Object, cmd4.Object};
+        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.MacroCommand", mass_of_checking_cmds).action();
         cmd1.Verify();
         cmd2.Verify();
         cmd3.Verify();
@@ -45,20 +41,15 @@ public class CreatCMDTest
     }
 
     [Fact]
-    public void test_generate_command_with_incorrect_command_names()
+    public void test_MacroCommand_with_empty_mass()
     {
-        Init_Score_Env();
-        var UObject = new Mock<IUObject>();
-        var checking_list_of_functions = new string[] { "SpaceShip.Lib.Comands.Cmd1", "SpaceShip.Lib.Comands.CmdSmth", "SpaceShip.Lib.Comands.Cmd3", "SpaceShip.Lib.Comands.Cmd4" };
-        Assert.Throws<System.ArgumentException>(() => Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.GenerableComand", UObject.Object, checking_list_of_functions).action());
+        List<SaceShips.Lib.Interfaces.ICommand> mass_of_checking_cmds = new List<SaceShips.Lib.Interfaces.ICommand>();
+        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.MacroCommand", mass_of_checking_cmds).action();
     }
 
     [Fact]
-    public void test_generate_command_with_incorrect_object()
+    public void test_MacroCommand_with_incorrect_list()
     {
-        Init_Score_Env();
-        var UObject = new Mock<IUObject>();
-        var checking_list_of_functions = new string[] { "SpaceShip.Lib.Comands.Cmd1", "SpaceShip.Lib.Comands.CmdSmth", "SpaceShip.Lib.Comands.Cmd3", "SpaceShip.Lib.Comands.Cmd4" };
-        Assert.Throws<System.InvalidCastException>(() => Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.GenerableComand", 1, checking_list_of_functions).action());
+        Assert.Throws<System.InvalidCastException>(() => Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.MacroCommand", 1).action());
     }
 }
