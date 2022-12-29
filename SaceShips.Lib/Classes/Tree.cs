@@ -13,7 +13,7 @@ public class Tree
     public void teach(List<List<object>> featers, List<object> ansers){
         var x = Hwdtech.IoC.Resolve<TreeNode>("SpaceShip.Lib.Get.Node", func_of_check);
         int stage = 0;
-        object? flag;
+        object flag;
         foreach (var item in featers)
         {
             first_layer.TryAdd(func_of_check(item[0]), (object)Hwdtech.IoC.Resolve<TreeNode>("SpaceShip.Lib.Get.Node", func_of_check));
@@ -30,7 +30,6 @@ public class Tree
 
     public object? get_solution(List<object> obj)
     {
-        // obj[0]
         object flag;
         first_layer.TryGetValue(func_of_check(obj[0]), out flag);
         if (flag == null) return null;
