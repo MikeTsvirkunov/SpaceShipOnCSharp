@@ -25,7 +25,7 @@ public class CSVReader: ICommand
             while (!reader.EndOfStream)
             {
                 string[] values = reader.ReadLine().Split("; ");
-                table.Add(new Dictionary<string?, object?>(listHEADERS.Zip(values, (k, v) => new KeyValuePair<string, object>(k, (object?)v))));
+                table.Add(new Dictionary<string, object?>(listHEADERS.Zip(values, (k, v) => new KeyValuePair<string, object>(k, (object?)v))));
             }
         }
     }
