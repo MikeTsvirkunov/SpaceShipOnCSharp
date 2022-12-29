@@ -2,7 +2,7 @@ name: .NET
 
 on:
   push:
-    branches: [ "master" , "MikeTsvirkunovLaba1", "MikeTsvirkunovLaba2" ]
+    branches: [ "master" , "MikeTsvirkunovLaba1", "MikeTsvirkunovLaba2", "MikeTsvirkunovLaba4" ]
   pull_request:
     branches: [ "master" ]
 
