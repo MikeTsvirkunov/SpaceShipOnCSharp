@@ -39,7 +39,7 @@ public class TreeTest
         foreach (var item in table_for_teach)
         {
             var feat = new List<object>(item.Values);
-            feat.ForEach(c => c = Int32.Parse((string?)c));
+            feat.ForEach(c => c = Int32.Parse((string)c ?? "-1"));
             list_of_features.Add(feat.GetRange(0, feat.Count-2));
             results.Add((new List<object>(feat))[feat.Count - 1]);
         }
