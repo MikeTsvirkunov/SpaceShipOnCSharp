@@ -16,11 +16,6 @@ public class MacroCommand : SaceShips.Lib.Interfaces.ICommand
 
     public void action()
     {
-        // foreach (var c in strategies)
-        // {
-        //     SaceShips.Lib.Interfaces.ICommand com = (SaceShips.Lib.Interfaces.ICommand)((IStartegy)c).execute(obj);
-        //     com.action();
-        // }
         strategies.ForEach(c => {((SaceShips.Lib.Interfaces.ICommand)((IStartegy)c).execute(obj)).action();});
     }
 }
