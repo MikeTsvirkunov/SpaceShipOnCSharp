@@ -19,7 +19,6 @@ public class CreatCMDTest
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.GenerableComand", (object[] args) => new GenerableComand((IUObject)args[0], (string[])args[1])).Execute();
-
     }
 
     [Fact]

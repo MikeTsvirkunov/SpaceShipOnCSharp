@@ -92,7 +92,7 @@ public class VectorTest
     public void GetStringTest()
     {
         Vector v = new Vector(new dynamic[] { 3, -2, 1, 4 });
-        string s = Convert.ToString(v);
+        string? s = Convert.ToString(v);
         Assert.Equal("Vector(3, -2, 1, 4)", Convert.ToString(v));
     }
 
