@@ -8,8 +8,6 @@ using System;
 using System.Diagnostics;
 using Hwdtech;
 using System.Linq;
-// using Hwdtech.IoC;
-// using Hwdtech.ScopeBasedIoCImplementation;
 namespace XUnit.Coverlet.Collector;
 public class CreatCMDTest
 {
