@@ -32,7 +32,7 @@ public class UIObjectTest
         var ComeBackChangeAngleSpeedStrategy = new Mock<IStartegy>();
         ComeBackCommmandStrategy.Setup(p => p.execute(It.IsAny<object[]>())).Returns(CmdExample.Object);
         ComeBackQueue.Setup(p => p.execute()).Returns(new Queue<SaceShips.Lib.Interfaces.ICommand>());
-        ComeBackChangeAngleSpeedStrategy.Setup(p => p.execute(It.IsAny<IUObject>(), It.IsAny<Fraction>));
+        ComeBackChangeAngleSpeedStrategy.Setup(p => p.execute(It.IsAny<IUObject>(), It.IsAny<Fraction>()));
 
         // Return rotate
         var ComeBackRotateCommmandStrategy = new Mock<IStartegy>();
