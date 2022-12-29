@@ -16,35 +16,43 @@ public class CreatCMDTest
     {
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.MacroCommand", (object[] args) => new MacroCommand((List<SaceShips.Lib.Interfaces.ICommand>)args[0])).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.MacroCommand", (object[] args) => new MacroCommand((IUObject)args[0], (List<SaceShips.Lib.Interfaces.IStartegy>)args[1])).Execute();
     }
 
     [Fact]
     public void test_generate_command()
     {
         Init_Score_Env();
-        var cmd1 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-        cmd1.Setup(p => p.action());
-        var cmd2 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-        cmd2.Setup(p => p.action());
-        var cmd3 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-        cmd3.Setup(p => p.action());
-        var cmd4 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-        cmd4.Setup(p => p.action()).Verifiable();
         var UObject = new Mock<IUObject>();
-        List<SaceShips.Lib.Interfaces.ICommand> mass_of_checking_cmds = new List<SaceShips.Lib.Interfaces.ICommand>(){cmd1.Object, cmd2.Object, cmd3.Object, cmd4.Object};
-        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.MacroCommand", mass_of_checking_cmds).action();
+
+        var cmd1 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+        cmd1.Setup(p => p.action()).Verifiable();
+        var strategy1 = new Mock<IStartegy>();
+        strategy1.Setup(p => p.execute(It.IsAny<IUObject>())).Returns(cmd1.Object);
+
+        var cmd2 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+        cmd2.Setup(p => p.action()).Verifiable();
+        var strategy2 = new Mock<IStartegy>();
+        strategy2.Setup(p => p.execute(It.IsAny<IUObject>())).Returns(cmd2.Object);
+
+        var cmd3 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+        cmd3.Setup(p => p.action()).Verifiable();
+        var strategy3 = new Mock<IStartegy>();
+        strategy3.Setup(p => p.execute(It.IsAny<IUObject>())).Returns(cmd3.Object);
+
+
+        List<SaceShips.Lib.Interfaces.IStartegy> mass_of_checking_cmds = new List<SaceShips.Lib.Interfaces.IStartegy>(){strategy1.Object, strategy2.Object, strategy3.Object};
+        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.MacroCommand", UObject.Object, mass_of_checking_cmds).action();
         cmd1.Verify();
         cmd2.Verify();
         cmd3.Verify();
-        cmd4.Verify();
     }
 
     [Fact]
     public void test_MacroCommand_with_empty_mass()
     {
-        List<SaceShips.Lib.Interfaces.ICommand> mass_of_checking_cmds = new List<SaceShips.Lib.Interfaces.ICommand>();
-        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.MacroCommand", mass_of_checking_cmds).action();
+        List<SaceShips.Lib.Interfaces.IStartegy> mass_of_checking_cmds = new List<SaceShips.Lib.Interfaces.IStartegy>();
+        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Comands.MacroCommand", It.IsAny<IUObject>(), mass_of_checking_cmds).action();
     }
 
     [Fact]

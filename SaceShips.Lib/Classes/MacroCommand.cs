@@ -5,15 +5,22 @@ using Hwdtech;
 using System.Linq;
 public class MacroCommand : SaceShips.Lib.Interfaces.ICommand
 {
-    List<SaceShips.Lib.Interfaces.ICommand> cmds;
+    IUObject obj;
+    List<SaceShips.Lib.Interfaces.IStartegy> strategies;
 
-    public MacroCommand(List<SaceShips.Lib.Interfaces.ICommand> cmd_names)
+    public MacroCommand(IUObject obj, List<SaceShips.Lib.Interfaces.IStartegy> strategies)
     {
-        this.cmds = cmd_names;
+        this.obj = (IUObject)obj;
+        this.strategies = strategies;
     }
 
     public void action()
     {
-        cmds.ForEach(c => c.action());
+        // foreach (var c in strategies)
+        // {
+        //     SaceShips.Lib.Interfaces.ICommand com = (SaceShips.Lib.Interfaces.ICommand)((IStartegy)c).execute(obj);
+        //     com.action();
+        // }
+        strategies.ForEach(c => {((SaceShips.Lib.Interfaces.ICommand)((IStartegy)c).execute(obj)).action();});
     }
 }
