@@ -7,8 +7,6 @@ using System.Collections.Concurrent;
 using System;
 using System.Diagnostics;
 using Hwdtech;
-// using Hwdtech.IoC;
-// using Hwdtech.ScopeBasedIoCImplementation;
 namespace XUnit.Coverlet.Collector;
 public class AngleSpeedChangeTest
 {
