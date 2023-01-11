@@ -1,21 +1,17 @@
 using SaceShips.Lib.Interfaces;
 namespace SaceShips.Lib.Classes;
 using System.Collections.Generic;
-using Hwdtech;
 using System.Linq;
 public class MacroCommand : SaceShips.Lib.Interfaces.ICommand
 {
-    IUObject obj;
-    List<SaceShips.Lib.Interfaces.IStartegy> strategies;
-
-    public MacroCommand(IUObject obj, List<SaceShips.Lib.Interfaces.IStartegy> strategies)
+    List<SaceShips.Lib.Interfaces.ICommand> cmds;
+    public MacroCommand(object cmds)
     {
-        this.obj = (IUObject)obj;
-        this.strategies = strategies;
+        this.cmds = (List<SaceShips.Lib.Interfaces.ICommand>) cmds;
     }
 
     public void action()
     {
-        strategies.ForEach(c => {((SaceShips.Lib.Interfaces.ICommand)((IStartegy)c).execute(obj)).action();});
+        cmds.ForEach(c => c.action());
     }
 }
