@@ -17,7 +17,6 @@ public class MacroStartegyTest
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.MacroStrategy", (object[] args) => new MacroStartegy((List<SaceShips.Lib.Interfaces.IStartegy>) args[0])).Execute();
-        // Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.MacroCommand", (object[] args) => new MacroCommand((IUObject)args[0], (List<SaceShips.Lib.Interfaces.IStartegy>)args[1])).Execute();
     }
 
     [Fact]
