@@ -44,6 +44,7 @@ public class SaveStrategy
 
         var testing_strategy = Hwdtech.IoC.Resolve<IStartegy>("SpaceShip.Lib.Strategy.TestStrategy", new object[] { });
         var save_strategy = Hwdtech.IoC.Resolve<IStartegy>("SpaceShip.Lib.Strategy.SaveStrategy", (object)testing_strategy, (object)error_tester);
+
         Assert.Equal((object)error_types[0], ((KeyValuePair<string, object>)save_strategy.execute(1, 0)).Value);
         Assert.Equal(1, ((KeyValuePair<string, object>)save_strategy.execute(1, 1)).Value);
         Assert.Equal((object)error_types[1], ((KeyValuePair<string, object>)save_strategy.execute(2, 3)).Value);
@@ -59,6 +60,7 @@ public class SaveStrategy
         var list_of_data = new List<List<object>>(){ new List<object>(){(object)Hwdtech.IoC.Resolve<IStartegy>("SpaceShip.Lib.Strategy.TestStrategy", new object[]{}), (object)(new Exception()) },
                                                      new List<object>(){(object)Hwdtech.IoC.Resolve<IStartegy>("SpaceShip.Lib.Strategy.TestStrategy", new object[]{}), (object)(new TypeLoadException()) }};
         var error_types = new List<object>() { "Err of test strategy", "Error for 2 throw" };
+        
         error_tester.teach(list_of_data, error_types);
 
         var testing_strategy = Hwdtech.IoC.Resolve<IStartegy>("SpaceShip.Lib.Strategy.TestStrategy", new object[] { });
