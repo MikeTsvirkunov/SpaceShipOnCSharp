@@ -17,11 +17,10 @@ public class SaveStrategy : IStartegy
     public object execute(params object[] args)
     {
         try{
-            return (object)this.strategy.execute(args);
-            // return (object) KeyValuePair<string, object>{, this.strategy.execute(args)};
+            return (object)(new KeyValuePair<string, object>("success", (object)this.strategy.execute(args)));
         }
         catch(Exception ex){
-            return (object)ErrorRegister.get_solution(new List<object>() { (object)strategy, (object)ex });
+            return (object)(new KeyValuePair<string, object>("error", (object)ErrorRegister.get_solution(new List<object>() { (object)strategy, (object)ex })));
         }
     }
 }

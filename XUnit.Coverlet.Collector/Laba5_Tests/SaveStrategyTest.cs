@@ -44,10 +44,10 @@ public class SaveStrategy
 
         var testing_strategy = Hwdtech.IoC.Resolve<IStartegy>("SpaceShip.Lib.Strategy.TestStrategy", new object[] { });
         var save_strategy = Hwdtech.IoC.Resolve<IStartegy>("SpaceShip.Lib.Strategy.SaveStrategy", (object)testing_strategy, (object)error_tester);
-        Assert.Equal((object)error_types[0], save_strategy.execute(1, 0));
-        Assert.Equal(1, save_strategy.execute(1, 1));
-        Assert.Equal((object)error_types[1], save_strategy.execute(2, 3));
-        Assert.NotEqual((object)error_types[1], save_strategy.execute(1, 0));
+        Assert.Equal((object)error_types[0], ((KeyValuePair<string, object>)save_strategy.execute(1, 0)).Value);
+        Assert.Equal(1, ((KeyValuePair<string, object>)save_strategy.execute(1, 1)).Value);
+        Assert.Equal((object)error_types[1], ((KeyValuePair<string, object>)save_strategy.execute(2, 3)).Value);
+        Assert.NotEqual((object)error_types[1], ((KeyValuePair<string, object>)save_strategy.execute(1, 0)).Value);
     }
 
     [Fact]
@@ -63,6 +63,6 @@ public class SaveStrategy
 
         var testing_strategy = Hwdtech.IoC.Resolve<IStartegy>("SpaceShip.Lib.Strategy.TestStrategy", new object[] { });
         var save_strategy = Hwdtech.IoC.Resolve<IStartegy>("SpaceShip.Lib.Strategy.SaveStrategy", (object)testing_strategy, (object)error_tester);
-        Assert.Equal(null, save_strategy.execute(2, 0));
+        Assert.Equal(new KeyValuePair<string, object>("error",null), (KeyValuePair<string, object>)save_strategy.execute(2, 0));
     }
 }
