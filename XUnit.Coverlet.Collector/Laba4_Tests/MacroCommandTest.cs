@@ -19,6 +19,7 @@ public class MacroCommandTest
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
 
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.EmptyICommandList", (object[] args) => new List<SaceShips.Lib.Interfaces.ICommand>()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.KeyPairStrategyParams", (object[] args) => (object)(new KeyValuePair<SaceShips.Lib.Interfaces.IStartegy, object[]>((SaceShips.Lib.Interfaces.IStartegy)args[0], (object[])args[1]))).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.KeyPairStrategyParamsList", (object[] args) => new List<KeyValuePair<SaceShips.Lib.Interfaces.IStartegy, object[]>>((System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<SaceShips.Lib.Interfaces.IStartegy, object[]>>)args[0])).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.MacroStrategy", (object[] args) => new MacroStartegy((List<SaceShips.Lib.Interfaces.IStartegy>)args[0])).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Comands.MacroCommand", (object[] args) => new MacroCommand((List<SaceShips.Lib.Interfaces.ICommand>)args[0])).Execute();
