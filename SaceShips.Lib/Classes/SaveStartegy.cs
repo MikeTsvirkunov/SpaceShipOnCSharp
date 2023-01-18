@@ -17,10 +17,11 @@ public class SaveStrategy : IStartegy
     public object execute(params object[] args)
     {
         try{
-            return (object)(new KeyValuePair<string, object>("success", (object)this.strategy.execute(args)));
+            return Hwdtech.IoC.Resolve<object>("SpaceShip.Lib.Strategy.KeyPairStringObject", "success", this.strategy.execute(args));
         }
         catch(Exception ex){
-            return (object)(new KeyValuePair<string, object>("error", (object)ErrorRegister.get_solution(new List<object>() { (object)strategy, (object)ex })));
+            return Hwdtech.IoC.Resolve<object>("SpaceShip.Lib.Strategy.KeyPairStringObject", "error", ErrorRegister.get_solution(Hwdtech.IoC.Resolve<List<object>>("SpaceShip.Lib.Strategy.ListObject", (object)strategy, (object)ex)));
+            // return (object)(new KeyValuePair<string, object>("error", (object)ErrorRegister.get_solution(new List<object>() { (object)strategy, (object)ex })));
         }
     }
 }
