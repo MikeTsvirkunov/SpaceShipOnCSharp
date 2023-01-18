@@ -20,7 +20,7 @@ public class SaveStrategy : IStartegy
             return Hwdtech.IoC.Resolve<object>("SpaceShip.Lib.Get.KeyPairStringObject", "success", this.strategy.execute(args));
         }
         catch(Exception ex){
-            return Hwdtech.IoC.Resolve<object>("SpaceShip.Lib.Get.KeyPairStringObject", "error", ErrorRegister.get_solution(Hwdtech.IoC.Resolve<List<object>>("SpaceShip.Lib.Get.ListObject", (object)strategy, (object)ex)));
+            return Hwdtech.IoC.Resolve<object>("SpaceShip.Lib.Get.KeyPairStringObject", "error", ErrorRegister.get_solution(Hwdtech.IoC.Resolve<List<object>>("SpaceShip.Lib.Get.ListObject", strategy, ex)));
         }
     }
 }
