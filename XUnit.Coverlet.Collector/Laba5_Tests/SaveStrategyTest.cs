@@ -27,7 +27,7 @@ public class SaveStrategy
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.NodeWithNexts", (object[] args) => new TreeNode((Func<object, object>)args[0], (Dictionary<object, object?>)args[1])).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Tree", (object[] args) => new Tree((Func<object, object>)args[0])).Execute();
 
-        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Strategy.SaveStrategy", (object[] args) => new SaceShips.Lib.Classes.SaveStrategy(args[0], args[1])).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Strategy.SaveStrategy", (object[] args) => new SaceShips.Lib.Classes.SaveStrategy((IStartegy)args[0], (Tree)args[1])).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Strategy.TestStrategy", (object[] args) => TestStrategy.Object).Execute();
     }
 

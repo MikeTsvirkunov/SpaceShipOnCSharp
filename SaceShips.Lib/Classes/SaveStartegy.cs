@@ -8,10 +8,10 @@ public class SaveStrategy : IStartegy
 {
     private Tree ErrorRegister;
     private IStartegy strategy;
-    public SaveStrategy(object strategy, object register)
+    public SaveStrategy(IStartegy strategy, Tree register)
     {
-        this.ErrorRegister = (Tree)register;
-        this.strategy = (IStartegy)strategy;
+        this.ErrorRegister = register;
+        this.strategy = strategy;
         
     }
     public object execute(params object[] args)
