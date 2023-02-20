@@ -16,6 +16,6 @@ class ServerThreadStrategy: IStartegy{
     }
 
     public object execute(params object[] args){
-        return (object)(new Thread(this.f.execute(this.queue)));
+        return (object)(new Thread(() => {this.f.execute(this.queue).action();}));
     }
 }
