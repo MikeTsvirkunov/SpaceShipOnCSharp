@@ -4,18 +4,15 @@ using System.Threading;
 
 namespace SaceShips.Lib.Classes;
 
-class ServerThreadStrategy: IStartegy{
-
-    Queue<SaceShips.Lib.Interfaces.ICommand> queue;
+public class ServerThreadStrategy: IStartegy{
 
     SaceShips.Lib.Interfaces.IStartegy f;
 
-    void ServerThreadStrategy(Queue<SaceShips.Lib.Interfaces.ICommand> queue, SaceShips.Lib.Interfaces.IStartegy f){
-        this.queue = queue;
+    public ServerThreadStrategy(SaceShips.Lib.Interfaces.IStartegy f){
         this.f = f;
     }
 
     public object execute(params object[] args){
-        return (object)(new Thread(() => {this.f.execute(this.queue).action();}));
+        return (object)(new Thread(() => {((SaceShips.Lib.Interfaces.ICommand)this.f.execute((Queue<SaceShips.Lib.Interfaces.ICommand>)args[0])).action();}));
     }
 }

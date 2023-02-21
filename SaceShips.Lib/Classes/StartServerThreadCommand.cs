@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace SaceShips.Lib.Classes;
 
-class StartServerThreadCommand : SaceShips.Lib.Interfaces.ICommand
+public class StartServerThreadCommand : SaceShips.Lib.Interfaces.ICommand
 {
     Thread server_thread;
 

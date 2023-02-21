@@ -5,10 +5,10 @@ using System.Threading;
 
 namespace SaceShips.Lib.Classes;
 
-class HardStopServerThreadCommand : SaceShips.Lib.Interfaces.ICommand
+public class HardStopServerThreadCommand : SaceShips.Lib.Interfaces.ICommand
 {
     public void action()
     {
-        Thread.CurrentThread.Abort();
+        Thread.CurrentThread.Interrupt();
     }
 }
