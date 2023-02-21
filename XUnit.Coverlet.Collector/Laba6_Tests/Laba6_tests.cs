@@ -85,14 +85,3 @@ public class ServerThreadStrategyTest
         TestExeCommand.Verify();
     }
 }
-
-// statefull <-> stateless - наличие состояния.
-// stateless - нет состояния, приходит один и тодже ответ. Это удобно когда большая нагрузка.
-// statefull - не можем создать несколько инстенсов, он хранит "игру" в памяти.
-// global interpritatelocal
-// Процесс - отдельный запущенный инстанс, и внём запускаются потоки.
-// Instance Process Comunication
-// I/o-bound
-// CPU-bound
-// postman - http client 
-// wsf
