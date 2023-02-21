@@ -4,11 +4,15 @@ using System.Threading;
 
 namespace SaceShips.Lib.Classes;
 
-public class ServerThreadStrategy: IStartegy{
+public class ServerThreadStrategy: IStartegy, IMethodChangeable{
 
     SaceShips.Lib.Interfaces.IStartegy f;
 
     public ServerThreadStrategy(SaceShips.Lib.Interfaces.IStartegy f){
+        this.f = f;
+    }
+
+    public void ChangeMethod(SaceShips.Lib.Interfaces.IStartegy f){
         this.f = f;
     }
 

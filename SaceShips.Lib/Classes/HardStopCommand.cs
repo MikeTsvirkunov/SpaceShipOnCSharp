@@ -9,6 +9,6 @@ public class HardStopServerThreadCommand : SaceShips.Lib.Interfaces.ICommand
 {
     public void action()
     {
-        Thread.CurrentThread.Interrupt();
+        Thread.CurrentThread.Abort();
     }
 }
