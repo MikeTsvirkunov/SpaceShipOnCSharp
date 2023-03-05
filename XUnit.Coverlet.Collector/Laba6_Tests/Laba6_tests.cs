@@ -25,65 +25,55 @@ public class ServerThreadStrategyTest
     }
 
     [Fact]
-    public void test_start_thread_and_hardstop_it()
+    public void test_start_thread()
     {
         Init_Score_Env_Laba6();
-        var TestExeStrategy = new Mock<SaceShips.Lib.Interfaces.IStartegy>();
-        var TestExeCommand = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-        var EmptyCommand = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-        EmptyCommand.Setup(p => p.action()).Verifiable();
+        var ExeStrategy = new Mock<SaceShips.Lib.Interfaces.IStartegy>();
+        var ExeCommand = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+        var EmptyCommand1 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+        
+        EmptyCommand1.Setup(p => p.action()).Verifiable();
         var x = Hwdtech.IoC.Resolve<BlockingCollection<SaceShips.Lib.Interfaces.ICommand>>("SpaceShip.Lib.Get.BlockingQueueOfICommand");
-        TestExeCommand.Setup(p => p.action()).Callback(() => { EmptyCommand.Object.action(); }).Verifiable();
-        TestExeStrategy.Setup(p => p.execute(EmptyCommand.Object)).Returns(TestExeCommand.Object).Verifiable();
+        x.Add(EmptyCommand1.Object);
+        x.Add(EmptyCommand1.Object);
+        ExeStrategy.Setup(p => p.execute(x)).Returns(ExeCommand.Object).Verifiable();
+        ExeCommand.Setup(p => p.action()).Callback(() => { while (x.Count() > 0) { ((SaceShips.Lib.Interfaces.ICommand)(x.Take())).action(); }}).Verifiable();
     
-        var thread_test = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Get.ServerThreadStrategy", TestExeStrategy.Object, x);
-        x.Add(EmptyCommand.Object);
-        x.Add(Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.HardStopServerThreadCommand", thread_test));
+        var thread_test = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Get.ServerThreadStrategy", ExeStrategy.Object, x);
         
         Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.StartServerThreadCommand", thread_test).action();
-        EmptyCommand.Verify();
+        EmptyCommand1.Verify(p => p.action(), Times.Exactly(2));
         // TestExeStrategy.Verify();
         // TestExeCommand.Verify();
     }
-    
+
     [Fact]
-    public void test_change_method_of_thread()
+    public void test_hard_stop_thread()
     {
-        // Init_Score_Env_Laba6();
-        // var TestExeStrategy = new Mock<SaceShips.Lib.Interfaces.IStartegy>();
-        // var TestExeCommand = new Mock<SaceShips.Lib.Interfaces`.ICommand>();
+        Init_Score_Env_Laba6();
+        var ExeStrategy = new Mock<SaceShips.Lib.Interfaces.IStartegy>();
+        var ExeCommand = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+        var TestCMD = new Mock<SaceShips.Lib.Interfaces.ICommand>();
 
-        // var TestExeStrategy2 = new Mock<SaceShips.Lib.Interfaces.IStartegy>();
-        // var TestExeCommand2 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-
-        // var EmptyCommand = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-        // EmptyCommand.Setup(p => p.action()).Verifiable();
-        // var EmptyCommand2 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-        // EmptyCommand2.Setup(p => p.action()).Verifiable();
-
-        // var x = Hwdtech.IoC.Resolve<Queue<SaceShips.Lib.Interfaces.ICommand>>("SpaceShip.Lib.Get.QueueOfICommand");
-        // x.Enqueue(EmptyCommand.Object);
-
-        // TestExeCommand.Setup(p => p.action()).Callback(() => { foreach (var item in x) { item.action(); } }).Verifiable();
-        // TestExeStrategy.Setup(p => p.execute(x)).Returns(TestExeCommand.Object).Verifiable();
-
-        // var thread_test = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Get.ServerThreadStrategy", TestExeStrategy.Object);
+        TestCMD.Setup(p => p.action()).Verifiable();
         
-        // TestExeCommand2.Setup(p => p.action()).Callback(() => { foreach (var item in x) { item.action(); } }).Verifiable();
-        // TestExeStrategy2.Setup(p => p.execute(x)).Returns(TestExeCommand.Object).Verifiable();
+        var y = Hwdtech.IoC.Resolve<BlockingCollection<SaceShips.Lib.Interfaces.ICommand>>("SpaceShip.Lib.Get.BlockingQueueOfICommand");
+    
+        ExeStrategy.Setup(p => p.execute(y)).Returns(ExeCommand.Object).Verifiable();
+        ExeCommand.Setup(p => p.action()).Callback(() => { while (y.Count() > 0) { ((SaceShips.Lib.Interfaces.ICommand)(y.Take())).action(); } }).Verifiable();
 
-        // var ChangeThreadMethodCommand = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-        // ChangeThreadMethodCommand.Setup(p => p.action()).Callback(() => { ((IMethodChangeable)thread_test).ChangeMethod(TestExeStrategy2.Object); }).Verifiable();
+        var thread_test2 = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Get.ServerThreadStrategy", ExeStrategy.Object, y);
 
-        // x.Enqueue(ChangeThreadMethodCommand.Object);
-        // x.Enqueue(EmptyCommand2.Object);
-        // x.Enqueue(Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.HardStopServerThreadCommand"));
+        y.Add(TestCMD.Object);
+        y.Add(TestCMD.Object);
+        y.Add(Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.HardStopServerThreadCommand", thread_test2));
+        y.Add(TestCMD.Object);
+        y.Add(TestCMD.Object);
 
-        // Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.StartServerThreadCommand", thread_test.execute(x)).action();
-        // EmptyCommand.Verify();
-        // EmptyCommand2.Verify();
-        // ChangeThreadMethodCommand.Verify();
-        // TestExeStrategy.Verify();
-        // TestExeCommand.Verify();
+        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.StartServerThreadCommand", thread_test2).action();
+        ExeStrategy.Verify(p => p.execute(y), Times.Once());
+        ExeCommand.Verify(p => p.action(), Times.Once());
+        Assert.Equal(y.Count(), 2);
+        TestCMD.Verify(p => p.action(), Times.Exactly(2));
     }
 }
