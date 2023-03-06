@@ -13,7 +13,6 @@ public class HardStopServerThreadCommand : SaceShips.Lib.Interfaces.ICommand
     }
     public void action()
     {
-        this.thread.ChangeMethod(new EmptyStrategy());
-        // this.thread.Stop();
+        this.thread.Stop();
     }
 }
