@@ -9,9 +9,9 @@ namespace SaceShips.Lib.Classes;
 
 public class StrategyReplaceCommand : SaceShips.Lib.Interfaces.ICommand
 {
-    ServerThreadStrategy thread;
+    IMethodChangeable thread;
     IStartegy f;
-    public StrategyReplaceCommand(ServerThreadStrategy thread, IStartegy f)
+    public StrategyReplaceCommand(IMethodChangeable thread, IStartegy f)
     {
         this.thread = thread;
         this.f = f;

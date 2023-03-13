@@ -7,7 +7,7 @@ namespace SaceShips.Lib.Classes;
 
 public class HardStopServerThreadCommand : SaceShips.Lib.Interfaces.ICommand
 {
-    ServerThreadStrategy thread; 
+    IStopable thread; 
     public HardStopServerThreadCommand(ServerThreadStrategy thread){
         this.thread = thread;
     }

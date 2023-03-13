@@ -6,13 +6,12 @@ using System.Collections.Concurrent;
 
 namespace SaceShips.Lib.Classes;
 
-public class ServerThreadStrategy: IStartegy{//, IMethodChangeable{
-
+public class ServerThreadStrategy: IStartegy, IMethodChangeable, IStopable
+{
     SaceShips.Lib.Interfaces.IStartegy f;
     bool run = true;
     Thread thread;
     BlockingCollection<SaceShips.Lib.Interfaces.ICommand> queue;
-// Gregory endruse основы многопоточного программирования
     public ServerThreadStrategy(SaceShips.Lib.Interfaces.IStartegy f, BlockingCollection<SaceShips.Lib.Interfaces.ICommand> x){
         this.f = f;
         this.queue = x;
