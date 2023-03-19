@@ -175,6 +175,7 @@ public class ServerThreadStrategyTest
         ManualResetEvent mre = new ManualResetEvent(false);
         ManualResetEvent mre1 = new ManualResetEvent(false);
 
+        var InitScopeInThreadCommand = new Mock<SaceShips.Lib.Interfaces.ICommand>();
         var TestCommand = new Mock<SaceShips.Lib.Interfaces.ICommand>();
         var TestCommand_after_soft = new Mock<SaceShips.Lib.Interfaces.ICommand>();
         var TestCommand_that_should_not_be_action = new Mock<SaceShips.Lib.Interfaces.ICommand>();
@@ -188,10 +189,17 @@ public class ServerThreadStrategyTest
         var thread_test = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Get.ServerThreadStrategy", Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.WalkerInQueueStrategy", f), queue);
         var soft_stop_cmd = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.SoftStopServerThreadCommand", thread_test, queue);
 
+        InitScopeInThreadCommand.Setup(p => p.action()).Callback(() => {
+            new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
+            Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
+            Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.HardStopServerThreadCommand", (object[] args) => new HardStopServerThreadCommand((ServerThreadStrategy)args[0])).Execute();
+            Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.SoftStopServerThreadCommand", (object[] args) => new SoftStopServerThreadCommand((ServerThreadStrategy)args[0], (BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)args[1])).Execute();
+        });
         TestCommand.Setup(p => p.action()).Callback(() => mre.Set()).Verifiable();
         TestCommand_that_should_not_be_action.Setup(p => p.action()).Verifiable();
         TestCommand_after_soft.Setup(p => p.action()).Callback(() => {queue.Add(TestCommand_that_should_not_be_action.Object); mre1.Set();}).Verifiable();
-        
+
+        queue.Add(InitScopeInThreadCommand.Object);
         queue.Add(TestCommand.Object);
         queue.Add(soft_stop_cmd);
         queue.Add(TestCommand_after_soft.Object);
