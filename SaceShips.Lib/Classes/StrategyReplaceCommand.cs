@@ -7,11 +7,11 @@ using Hwdtech;
 
 namespace SaceShips.Lib.Classes;
 
-public class StrategyReplaceCommand : SaceShips.Lib.Interfaces.ICommand
+public class WalkingStrategyInThreadReplaceCommand : SaceShips.Lib.Interfaces.ICommand
 {
     IMethodChangeable thread;
     IStartegy f;
-    public StrategyReplaceCommand(IMethodChangeable thread, IStartegy f)
+    public WalkingStrategyInThreadReplaceCommand(IMethodChangeable thread, IStartegy f)
     {
         this.thread = thread;
         this.f = f;

@@ -13,38 +13,6 @@ using System.Threading;
 
 public class ServerThreadStrategyTest
 {
-    // [Fact]
-    // public void test_start_thread()
-    // {
-    //     new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
-    //     Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
-    //     Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.ServerThreadStrategy", (object[] args) => new ServerThreadStrategy((SaceShips.Lib.Interfaces.IStartegy)args[0], (BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)args[1])).Execute();
-    //     Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.BlockingQueueOfICommand", (object[] args) => new BlockingCollection<SaceShips.Lib.Interfaces.ICommand>()).Execute();
-    //     Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.StartServerThreadCommand", (object[] args) => new StartServerThreadCommand((ServerThreadStrategy)args[0])).Execute();
-    //     Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.HardStopServerThreadCommand", (object[] args) => new HardStopServerThreadCommand((ServerThreadStrategy)args[0])).Execute();
-    //     Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.SoftStopServerThreadCommand", (object[] args) => new SoftStopServerThreadCommand((ServerThreadStrategy)args[0], (BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)args[1])).Execute();
-
-
-    //     var ExeStrategy = new Mock<SaceShips.Lib.Interfaces.IStartegy>();
-    //     var ExeCommand = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-    //     var TestCommand = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-
-    //     TestCommand.Setup(p => p.action()).Verifiable();
-
-    //     var x = Hwdtech.IoC.Resolve<BlockingCollection<SaceShips.Lib.Interfaces.ICommand>>("SpaceShip.Lib.Get.BlockingQueueOfICommand");
-    //     ExeCommand.Setup(p => p.action()).Callback(() => { TestCommand.Object.action(); }).Verifiable();
-    //     ExeStrategy.Setup(p => p.execute(TestCommand.Object)).Returns(ExeCommand.Object).Verifiable();
-    
-    //     var thread_test = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Get.ServerThreadStrategy", ExeStrategy.Object, x);
-
-    //     x.Add(TestCommand.Object);
-    //     x.Add(TestCommand.Object);
-    //     x.Add(TestCommand.Object);
-        
-    //     Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.StartServerThreadCommand", thread_test).action();
-    //     TestCommand.Verify(p => p.action(), Times.Exactly(3));
-    // }
-
     [Fact]
     public void test_replace_function()
     {
@@ -87,7 +55,7 @@ public class ServerThreadStrategyTest
     }
 
     [Fact]
-    public void test_start_walking_walking_strategy_added()
+    public void test_start_thread()
     {
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
@@ -119,7 +87,7 @@ public class ServerThreadStrategyTest
     }
 
     [Fact]
-    public void test_hard_stop_walking_strategy_added()
+    public void test_hard_stop()
     {
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
@@ -158,9 +126,8 @@ public class ServerThreadStrategyTest
         Assert.Equal(queue.Take(), TestCommand_that_should_not_be_action.Object);
     }
 
-
     [Fact]
-    public void test_soft_stop_walking_strategy_added()
+    public void test_soft_stop()
     {
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
@@ -211,5 +178,47 @@ public class ServerThreadStrategyTest
         TestCommand_that_should_not_be_action.Verify(p => p.action(), Times.Never());
         Assert.Equal(queue.Count(), 1);
         Assert.Equal(queue.Take(), TestCommand_that_should_not_be_action.Object);
+    }
+
+
+    [Fact]
+    public void test_replace_command()
+    {
+        new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.ServerThreadStrategy", (object[] args) => new ServerThreadStrategy((SaceShips.Lib.Interfaces.IStartegy)args[0], (BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)args[1])).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.BlockingQueueOfICommand", (object[] args) => new BlockingCollection<SaceShips.Lib.Interfaces.ICommand>()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.StartServerThreadCommand", (object[] args) => new StartServerThreadCommand((ServerThreadStrategy)args[0])).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.WalkingStrategyInThreadReplaceCommand", (object[] args) => new WalkingStrategyInThreadReplaceCommand((IMethodChangeable)args[0], (IStartegy)args[1])).Execute();
+
+        ManualResetEvent mre = new ManualResetEvent(false);
+
+        var TestCommand1 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+        var TestCommand2 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+
+        var ExeStrategy1 = new Mock<SaceShips.Lib.Interfaces.IStartegy>();
+        var ExeStrategy2 = new Mock<SaceShips.Lib.Interfaces.IStartegy>();
+
+        var queue = Hwdtech.IoC.Resolve<BlockingCollection<SaceShips.Lib.Interfaces.ICommand>>("SpaceShip.Lib.Get.BlockingQueueOfICommand");
+        var thread_test = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Get.ServerThreadStrategy", ExeStrategy1.Object, queue);
+        var replacer = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.WalkingStrategyInThreadReplaceCommand", thread_test, ExeStrategy2.Object);
+
+        TestCommand1.Setup(p => p.action()).Verifiable();
+        TestCommand2.Setup(p => p.action()).Callback(() => mre.Set()).Verifiable();
+        ExeStrategy1.Setup(p => p.execute(TestCommand1.Object)).Returns(TestCommand1.Object).Verifiable();
+        ExeStrategy1.Setup(p => p.execute(replacer)).Returns(replacer).Verifiable();
+        ExeStrategy2.Setup(p => p.execute(TestCommand2.Object)).Returns(TestCommand2.Object).Verifiable();
+
+        queue.Add(TestCommand1.Object);
+        queue.Add(replacer);
+        queue.Add(TestCommand2.Object);
+        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.StartServerThreadCommand", thread_test).action();
+        Assert.True(mre.WaitOne(10000));
+        TestCommand1.Verify(p => p.action(), Times.Once());
+        TestCommand2.Verify(p => p.action(), Times.Once());
+        ExeStrategy1.Verify(p => p.execute(TestCommand1.Object), Times.Once());
+        ExeStrategy2.Verify(p => p.execute(TestCommand2.Object), Times.Once());
+
+        Assert.Equal(queue.Count(), 0);
     }
 }
