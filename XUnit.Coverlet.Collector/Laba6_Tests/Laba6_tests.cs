@@ -218,7 +218,7 @@ public class ServerThreadStrategyTest
         TestCommand2.Verify(p => p.action(), Times.Once());
         ExeStrategy1.Verify(p => p.execute(TestCommand1.Object), Times.Once());
         ExeStrategy2.Verify(p => p.execute(TestCommand2.Object), Times.Once());
-
+        ExeStrategy1.Verify(p => p.execute(replacer), Times.Once());
         Assert.Equal(queue.Count(), 0);
     }
 }
