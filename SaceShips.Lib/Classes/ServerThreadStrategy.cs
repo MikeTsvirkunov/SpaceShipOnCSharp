@@ -16,14 +16,16 @@ public class ServerThreadStrategy: IStartegy, IMethodChangeable, IStopable
         this.f = f;
         this.queue = x;
         this.thread = new Thread(() => {
-            while (this.run && this.queue.Count() > 0){
+            while (this.run){
                 ((SaceShips.Lib.Interfaces.ICommand)this.f.execute(this.queue.Take())).action();
             }
         });
     }
 
     public void ChangeMethod(SaceShips.Lib.Interfaces.IStartegy f){
-        this.f = f;
+        if (this.thread == Thread.CurrentThread){
+            this.f = f;
+        }
     }
 
     public void Stop()
