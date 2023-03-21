@@ -110,6 +110,8 @@ public class ServerThreadStrategyTest
 
         Func<object, object> f = (object x) =>
         {
+            // var z = SaceShips.Lib.Interfaces.ICommand
+            // ((BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)x).TryTake(out z);
             return x;
         };
         var thread_test = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Get.ServerThreadStrategy", Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.WalkerInQueueStrategy", f), queue);
@@ -220,5 +222,14 @@ public class ServerThreadStrategyTest
         ExeStrategy2.Verify(p => p.execute(TestCommand2.Object), Times.Once());
         ExeStrategy1.Verify(p => p.execute(replacer), Times.Once());
         Assert.Equal(queue.Count(), 0);
+    }
+
+    [Fact]
+    public void test_blocking_collection(){
+        SaceShips.Lib.Interfaces.ICommand TestCommand;
+        var TestCommand1 = new Mock<SaceShips.Lib.Interfaces.ICommand>();
+        TestCommand1.Setup(p => p.action()).Callback(() => true).Verifiable();
+        var x = new BlockingCollection<SaceShips.Lib.Interfaces.ICommand>();
+        Assert.False(x.TryTake(out TestCommand));
     }
 }
