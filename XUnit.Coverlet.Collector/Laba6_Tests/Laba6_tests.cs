@@ -48,7 +48,7 @@ public class ServerThreadStrategyTest
         Assert.True(mre.WaitOne(10000));
         TestCommand.Verify(p => p.action(), Times.Once());
         TestCommand_that_should_not_be_action.Verify(p => p.action(), Times.Never());
-        Assert.Equal(queue.Count(), 1);
+        Assert.True(1 == queue.Count());
         Assert.Equal(queue.Take(), TestCommand_that_should_not_be_action.Object);
     }
 
@@ -105,7 +105,7 @@ public class ServerThreadStrategyTest
         TestCommand.Verify(p => p.action(), Times.Once());
         TestCommand_after_soft.Verify(p => p.action(), Times.Once());
         TestCommand_that_should_be_action2.Verify(p => p.action(), Times.Once());
-        Assert.Equal(queue.Count(), 0);
+        Assert.True(0 == queue.Count());
     }
 
 
@@ -166,6 +166,6 @@ public class ServerThreadStrategyTest
         TestCommand2.Verify(p => p.action(), Times.Once());
         check1.Verify(p => p.action(), Times.Exactly(2));
         check2.Verify(p => p.action(), Times.Exactly(2));
-        Assert.Equal(queue.Count(), 0);
+        Assert.True(0 == queue.Count());
     }
 }
