@@ -17,7 +17,7 @@ public class ServerThreadStrategy: IStartegy, IMethodChangeable, IStopable
         this.queue = x;
         this.thread = new Thread(() => {
             while (this.run){
-                ((SaceShips.Lib.Interfaces.ICommand)this.f.execute(this.queue.Take())).action();
+                ((SaceShips.Lib.Interfaces.ICommand)this.f.execute(this.queue)).action();
             }
         });
     }
