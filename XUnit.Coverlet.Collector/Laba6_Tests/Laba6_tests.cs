@@ -164,6 +164,8 @@ public class ServerThreadStrategyTest
         Assert.True(mre.WaitOne(10000));
         TestCommand1.Verify(p => p.action(), Times.Once());
         TestCommand2.Verify(p => p.action(), Times.Once());
+        check1.Verify(p => p.action(), Times.Exactly(2));
+        check2.Verify(p => p.action(), Times.Exactly(2));
         Assert.Equal(queue.Count(), 0);
     }
 }
