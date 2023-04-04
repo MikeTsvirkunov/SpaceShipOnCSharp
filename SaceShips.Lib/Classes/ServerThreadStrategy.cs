@@ -30,7 +30,9 @@ public class ServerThreadStrategy: IStartegy, IMethodChangeable, IStopable
 
     public void Stop()
     {
-        this.run = false;
+        if (this.thread == Thread.CurrentThread){
+            this.run = false;
+        }
     }
 
     public object execute(params object[] args){
