@@ -99,6 +99,7 @@ public class ServerThreadStrategyTest
         queue.Add(TestCommand.Object);
         queue.Add(soft_stop_cmd);
         queue.Add(TestCommand_after_soft.Object);
+        queue.Add(soft_stop_cmd);
         Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.StartServerThreadCommand", thread_test).action();
         Assert.True(mre.WaitOne(10000));
         Assert.True(mre1.WaitOne(10000));

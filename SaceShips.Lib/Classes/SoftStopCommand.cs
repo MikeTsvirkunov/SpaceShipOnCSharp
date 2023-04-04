@@ -18,8 +18,6 @@ public class SoftStopServerThreadCommand : SaceShips.Lib.Interfaces.ICommand
     }
     public void action()
     {
-        SaceShips.Lib.Interfaces.ICommand? z = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.HardStopServerThreadCommand", this.thread);
-        this.queue.TryTake(out z);
-        this.queue.Add(z);
+        if (this.queue.Count() == 0) this.queue.Add(Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.HardStopServerThreadCommand", this.thread));
     }
 }
