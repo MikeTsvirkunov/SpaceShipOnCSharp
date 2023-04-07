@@ -366,3 +366,5 @@ FodyWeavers.xsd
 #Ignore test cov
 XUnit.Coverlet.Collector/coveragereport
 XUnit.Coverlet.Collector/TestResults
+
+.vscode/
