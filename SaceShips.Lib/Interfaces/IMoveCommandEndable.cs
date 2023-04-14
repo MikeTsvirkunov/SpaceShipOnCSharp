@@ -1,11 +1,8 @@
-using SaceShips.Lib.Interfaces;
-namespace SaceShips.Lib.Classes;
-using System.Collections.Generic;
+namespace SaceShips.Lib.Interfaces;
 
-public interface IMoveCommandEndable
+public interface IMoveCommandEndable : ICommand
 {
-    IUObject uobject { get; }
-
-    IEnumerable<string> properties { get; }
-
+    IEnumerable<object> properties { set; get; }
+    ICommand move_command { get; }
+    IUObject uobj { get; }
 }

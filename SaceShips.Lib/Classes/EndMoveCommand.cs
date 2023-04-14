@@ -1,19 +1,21 @@
+using SaceShips.Lib.Interfaces;
+
 namespace SaceShips.Lib.Classes;
-using Hwdtech;
-
-public class EndMoveCommand : ICommand
+public class EndMoveCommand : SaceShips.Lib.Interfaces.ICommand
 {
-    private IMoveCommandEndable obj;
-
+    IMoveCommandEndable stop_obj;
     public EndMoveCommand(IMoveCommandEndable obj)
     {
-        this.obj = obj;
+        stop_obj = obj;
     }
 
-    public void Execute()
+    public void action()
     {
-        obj.properties.ToList().ForEach(p => IoC.Resolve<ICommand>("SpaceBattle.RemoveProperty", obj.uobject, p).Execute());
-        IoC.Resolve<IInjectable>("SpaceBattle.Commands.SetupCommand", obj.uobject).Inject(IoC.Resolve<ICommand>("SpaceBattle.Commands.Empty"));
-    }
+        var obj = stop_obj.uobj;
+        var cmd = stop_obj.move_command;
+        var properties = stop_obj.properties;
 
+        properties.ToList().ForEach(property => Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("Game.Object.DeleteProperty", obj, property));
+        Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("Game.Commands.InjectEmptyCommand", cmd);
+    }
 }
