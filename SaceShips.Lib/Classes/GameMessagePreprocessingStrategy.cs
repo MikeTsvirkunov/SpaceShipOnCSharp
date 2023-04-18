@@ -11,7 +11,7 @@ public class GameCommandMessagePreprocessingStrategy : SaceShips.Lib.Interfaces.
 
     public object execute(object[] args)
     {
-        return new Dictionary<string, object>(){{ "game_id", ((GameCommandMessage)args[0]).game_id },
+        return new Dictionary<string, object?>(){{ "game_id", ((GameCommandMessage)args[0]).game_id },
                                                 { "command", ((GameCommandMessage)args[0]).command },
                                                 { "args", ((GameCommandMessage)args[0]).args }};
     }
