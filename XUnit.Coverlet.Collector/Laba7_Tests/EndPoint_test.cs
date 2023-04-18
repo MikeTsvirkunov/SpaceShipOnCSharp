@@ -21,31 +21,21 @@ public class EP
     [Fact]
     public void EndPoint_test()
     {
-        string url = "http://localhost:8000/";
-        HttpListener listener = new HttpListener();
-        listener.Prefixes.Add(url);
-        var x = new EndPointStrategy(listener);
-        string z = "";
-        var values = new Dictionary<string, string>
-            {
-                { "type", "fire" },
-                { "game id", "g1" },
-                {"game item id", "spsh1"}
-            };
-        listener.Start();
+        new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.EndPoints.GameCommandMessageGetter", (object[] args) => new GameCommandMessageGetter()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Messages.GameCommandMessage", (object[] args) => new GameCommandMessage()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Strategies.GameCommandMessagePreprocessing", (object[] args) => new GameCommandMessagePreprocessingStrategy()).Execute();
 
-        using (var client = new HttpClient())
-        {
-            client.BaseAddress = new Uri(url);
+        GameCommandMessage game_command_message_for_test = Hwdtech.IoC.Resolve<GameCommandMessage>("SpaceShip.Lib.Messages.GameCommandMessage");
+        game_command_message_for_test.command = "cmd1";
+        game_command_message_for_test.game_id = "game1";
+        game_command_message_for_test.args = new List<string>(){ "game_object", "another_parametr" };
 
-            var content = new FormUrlEncodedContent(values);
-            var massege = client.PostAsJsonAsync(url, values);
-            z = (string) x.execute();
-
-        }
-        listener.Close();
-        Assert.Equal("{\"type\":\"fire\",\"game id\":\"g1\",\"game item id\":\"spsh1\"}", z);
-        var res = JsonSerializer.Deserialize<Dictionary<string, string>>(z);
-        Assert.Equal(values["type"], res["type"]);
+        GameCommandMessageGetter end_point_for_test = Hwdtech.IoC.Resolve<GameCommandMessageGetter>("SpaceShip.Lib.EndPoints.GameCommandMessageGetter");
+        var results = (Dictionary<string, object>)end_point_for_test.get_message(game_command_message_for_test);
+        Assert.Equal(game_command_message_for_test.command, results["command"]);
+        Assert.Equal(game_command_message_for_test.game_id, results["game_id"]);
+        Assert.Equal(game_command_message_for_test.args, results["args"]);
     }
 }
