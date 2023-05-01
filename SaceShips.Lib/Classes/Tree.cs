@@ -2,6 +2,7 @@ using SaceShips.Lib.Interfaces;
 namespace SaceShips.Lib.Classes;
 using System.Collections.Generic;
 
+#nullable enable
 public class Tree
 {
     private Func<object, object> func_of_check;
