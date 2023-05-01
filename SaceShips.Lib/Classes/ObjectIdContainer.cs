@@ -13,6 +13,6 @@ public class ObjectIdContainer: IStartegy
     }
     public object execute(params object[] arg)
     {
-        return func_of_search(arg, container);
+        return func_of_search(arg[0], container);
     }
 }
