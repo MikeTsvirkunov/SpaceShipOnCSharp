@@ -1,7 +1,7 @@
 using SaceShips.Lib.Interfaces;
 namespace SaceShips.Lib.Classes;
 
-
+#nullable enable
 public class TreeNode: ISource
 {
     private Func<object, object> func_of_check;

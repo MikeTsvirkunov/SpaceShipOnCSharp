@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 namespace SaceShips.Lib.Classes;
 
-
+#nullable enable
 public class CSVReader: ICommand
 {
     private string spliter;
