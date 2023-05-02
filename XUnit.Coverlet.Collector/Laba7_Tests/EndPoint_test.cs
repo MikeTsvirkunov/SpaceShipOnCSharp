@@ -69,7 +69,6 @@ public class EP
         test_command.Setup(p => p.action()).Verifiable();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "TestCMD", (object[] args) => test_command.Object).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Strategies.GameCommandMessagePreprocessing", (object[] args) => new GameCommandMessagePreprocessingStrategy()).Execute();
-
         Func<object, object, object> func_gamequeue_search_in_idlist = (object id, object container) => ((Dictionary<string, BlockingCollection<SaceShips.Lib.Interfaces.ICommand>>)container)[(string)id];
         var game1_queue = new BlockingCollection<SaceShips.Lib.Interfaces.ICommand>() { };
         var id_queuegame_dictionary = new Dictionary<string, BlockingCollection<SaceShips.Lib.Interfaces.ICommand>>() { { "game1", game1_queue } };
@@ -79,7 +78,6 @@ public class EP
         game_command_message_for_test.command = "TestCMD";
         game_command_message_for_test.game_id = "game1";
         game_command_message_for_test.args = new List<string>() { };
-
         GameCommandMessageGetter end_point_for_test = Hwdtech.IoC.Resolve<GameCommandMessageGetter>("SpaceShip.Lib.EndPoints.GameCommandMessageGetter");
         var results = (Dictionary<string, object>)end_point_for_test.get_message(game_command_message_for_test);
         var test_queue_get = (BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)id_game_container.execute(results["game_id"]);
@@ -100,20 +98,11 @@ public class EP
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Messages.GameCommandMessage", (object[] args) => new GameCommandMessage()).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Node", (object[] args) => new TreeNode((Func<object, object>)args[0])).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Tree", (object[] args) => new Tree((Func<object, object>)args[0])).Execute();
-
-
         var test_command = new Mock<SaceShips.Lib.Interfaces.ICommand>();
-        // var test_object = new object();
+        test_command.Setup(p => p.action()).Verifiable();
         Func<object, object> func_gamequeue_search = (object z) => z;
-        var tree_queuegame_container = Hwdtech.IoC.Resolve<Tree>("SpaceShip.Lib.Get.Tree", func_gamequeue_search);
-        var tree_object_container = Hwdtech.IoC.Resolve<Tree>("SpaceShip.Lib.Get.Tree", func_gamequeue_search);
         var game1_queue = new BlockingCollection<SaceShips.Lib.Interfaces.ICommand>() { };
         var id_queuegame_container = new Dictionary<string, BlockingCollection<SaceShips.Lib.Interfaces.ICommand>>(){{"game1", game1_queue }};
-        // object_id_list = new List<string>() { "object1" };
-        // var queuegame_list = new List<object>() { new BlockingCollection<SaceShips.Lib.Interfaces.ICommand>(){} };
-        // object_list = new List<object>(){ test_object };
-        // tree_queuegame_container.teach(queuegame_id_list, queuegame_list);
-
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "TestCMD", (object[] args) => test_command.Object).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Strategies.GameCommandMessagePreprocessing", (object[] args) => new GameCommandMessagePreprocessingStrategy()).Execute();
 
@@ -121,15 +110,14 @@ public class EP
         game_command_message_for_test.command = "TestCMD";
         game_command_message_for_test.game_id = "game1";
         game_command_message_for_test.args = new List<string>() {};
-
         GameCommandMessageGetter end_point_for_test = Hwdtech.IoC.Resolve<GameCommandMessageGetter>("SpaceShip.Lib.EndPoints.GameCommandMessageGetter");
         var results = (Dictionary<string, object>)end_point_for_test.get_message(game_command_message_for_test);
         var test_queue_get = id_queuegame_container[(string)results["game_id"]];
-        // var test_queue_get = (BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)tree_queuegame_container.get_solution( new List<object>(){ (string)results["game_id"] } );
         var test_cmd_get = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>((string)results["command"]);
         Assert.Equal(test_cmd_get, test_command.Object);
         Assert.Equal(test_queue_get, game1_queue);
         test_queue_get.TryAdd(test_cmd_get);
-        test_queue_get.Take().action();       
+        test_queue_get.Take().action();
+        test_command.Verify(p => p.action(), Times.Once());
     }
 }
