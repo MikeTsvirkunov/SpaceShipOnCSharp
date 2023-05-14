@@ -55,6 +55,16 @@ public class ServerThreadStrategyTest
     [Fact]
     public void test_soft_stop()
     {
+        Func<object, object> standart_command_preprocessing_function = (object x) =>
+        {
+            return ((BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)x).Take();
+        };
+
+        Func<BlockingCollection<SaceShips.Lib.Interfaces.ICommand>, System.Boolean> is_queue_empty_checker = (BlockingCollection<SaceShips.Lib.Interfaces.ICommand> x) =>
+        {
+            return x.Count() == 0;
+        };
+
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.ServerThreadStrategy", (object[] args) => new ServerThreadStrategy((SaceShips.Lib.Interfaces.IStartegy)args[0], (BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)args[1])).Execute();
@@ -63,6 +73,10 @@ public class ServerThreadStrategyTest
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.HardStopServerThreadCommand", (object[] args) => new HardStopServerThreadCommand((ServerThreadStrategy)args[0])).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.WalkerInQueueStrategy", (object[] args) => new WalkerInQueueStrategy((Func<object, object>)args[0])).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.SoftStopServerThreadCommand", (object[] args) => new SoftStopServerThreadCommand((ServerThreadStrategy)args[0], (BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)args[1])).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.StandartComandPreprocessingFunction", (object[] args) => standart_command_preprocessing_function).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.WalkerInQueueStrategyWithStopByEmptyQueue", (object[] args) => new WalkerInQueueStrategyWithStopByEmptyQueue((Func<object, object>)args[0], (ServerThreadStrategy)args[1])).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.ChangeThreadMethodCommand", (object[] args) => new StandartChangeThreadMethodCommand((ServerThreadStrategy)args[0], (IStartegy)args[1])).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.IsQueueEmpty", (object[] args) => (object)is_queue_empty_checker((BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)args[0])).Execute();
 
 
         ManualResetEvent mre = new ManualResetEvent(false);
@@ -76,6 +90,10 @@ public class ServerThreadStrategyTest
             Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
             Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.HardStopServerThreadCommand", (object[] args) => new HardStopServerThreadCommand((ServerThreadStrategy)args[0])).Execute();
             Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.SoftStopServerThreadCommand", (object[] args) => new SoftStopServerThreadCommand((ServerThreadStrategy)args[0], (BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)args[1])).Execute();
+            Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.StandartComandPreprocessingFunction", (object[] args) => standart_command_preprocessing_function).Execute();
+            Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.WalkerInQueueStrategyWithStopByEmptyQueue", (object[] args) => new WalkerInQueueStrategyWithStopByEmptyQueue((Func<object, object>)args[0], (ServerThreadStrategy)args[1])).Execute();
+            Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.IsQueueEmpty", (object[] args) => (object)is_queue_empty_checker((BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)args[0])).Execute();
+            Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.ChangeThreadMethodCommand", (object[] args) => new StandartChangeThreadMethodCommand((ServerThreadStrategy)args[0], (IStartegy)args[1])).Execute();
         });
 
         var TestCommand = new Mock<SaceShips.Lib.Interfaces.ICommand>();
@@ -84,11 +102,7 @@ public class ServerThreadStrategyTest
 
         var queue = Hwdtech.IoC.Resolve<BlockingCollection<SaceShips.Lib.Interfaces.ICommand>>("SpaceShip.Lib.Get.BlockingQueueOfICommand");
 
-        Func<object, object> f = (object x) =>
-        {
-            return ((BlockingCollection<SaceShips.Lib.Interfaces.ICommand>)x).Take();
-        };
-        var thread_test = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Get.ServerThreadStrategy", Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.WalkerInQueueStrategy", f), queue);
+        var thread_test = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Get.ServerThreadStrategy", Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.WalkerInQueueStrategy", Hwdtech.IoC.Resolve<System.Func<object, object>>("SpaceShip.Lib.StandartComandPreprocessingFunction")), queue);
         var soft_stop_cmd = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.SoftStopServerThreadCommand", thread_test, queue);
 
         TestCommand.Setup(p => p.action()).Callback(() => mre.Set()).Verifiable();
@@ -99,7 +113,7 @@ public class ServerThreadStrategyTest
         queue.Add(TestCommand.Object);
         queue.Add(soft_stop_cmd);
         queue.Add(TestCommand_after_soft.Object);
-        queue.Add(soft_stop_cmd);
+
         Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.StartServerThreadCommand", thread_test).action();
         Assert.True(mre.WaitOne(10000));
         Assert.True(mre1.WaitOne(10000));
@@ -108,7 +122,6 @@ public class ServerThreadStrategyTest
         TestCommand_that_should_be_action2.Verify(p => p.action(), Times.Once());
         Assert.True(0 == queue.Count());
     }
-
 
     [Fact]
     public void test_replace_command()
