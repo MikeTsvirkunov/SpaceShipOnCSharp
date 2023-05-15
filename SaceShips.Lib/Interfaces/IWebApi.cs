@@ -18,6 +18,6 @@ public interface IGameCommandEndPoint
                                             StatusCode = HttpStatusCode.OK, 
                                             Type = typeof(GameCommandMessage))]
     object get_message(
-        [OpenApiParameter(ContentTypes = new[] { "application/json", "text/xml" }, Description = "param description.")]
+        [OpenApiParameter(ContentTypes = new[] { "application/json", "text/xml" }, Description = "GameCommand unpack.")]
         GameCommandMessage param);
 }

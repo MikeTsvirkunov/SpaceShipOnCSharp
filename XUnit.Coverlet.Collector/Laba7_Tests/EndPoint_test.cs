@@ -44,6 +44,68 @@ public class EP
     }
 
     [Fact]
+    public void EndPoint_test_error_on_game_id_check()
+    {
+        new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.EndPoints.GameCommandMessageGetter", (object[] args) => new GameCommandMessageGetter()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Messages.GameCommandMessage", (object[] args) => new GameCommandMessage()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Strategies.GameCommandMessagePreprocessing", (object[] args) => new GameCommandMessagePreprocessingStrategy()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Strategies.GameCommandMassegeGetterExceptionHandler", (object[] args) => new DefaultExceptionHandler(new object())).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.GameId.FromGameCommandMessage", (object[] args) => {throw new System.Exception("test exception thrown"); return new object();}).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Args.FromGameCommandMessage", (object[] args) => ((IArgContainer)args[0]).args).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.CommandName.FromGameCommandMessage", (object[] args) => ((ICommandNameContainer)args[0]).command_name).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Result.FromDefaultExceptionHandler", (object[] args) => "It\'s error").Execute();
+        GameCommandMessage game_command_message_for_test = Hwdtech.IoC.Resolve<GameCommandMessage>("SpaceShip.Lib.Messages.GameCommandMessage");
+        game_command_message_for_test.command_name = "cmd1";
+        game_command_message_for_test.game_id = "game1";
+        GameCommandMessageGetter end_point_for_test = Hwdtech.IoC.Resolve<GameCommandMessageGetter>("SpaceShip.Lib.EndPoints.GameCommandMessageGetter");
+        var results = end_point_for_test.get_message(game_command_message_for_test);
+        Assert.Equal(results, "It\'s error");
+    }
+
+    [Fact]
+    public void EndPoint_test_error_on_command_name_check()
+    {
+        new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.EndPoints.GameCommandMessageGetter", (object[] args) => new GameCommandMessageGetter()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Messages.GameCommandMessage", (object[] args) => new GameCommandMessage()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Strategies.GameCommandMessagePreprocessing", (object[] args) => new GameCommandMessagePreprocessingStrategy()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Strategies.GameCommandMassegeGetterExceptionHandler", (object[] args) => new DefaultExceptionHandler(new object())).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.GameId.FromGameCommandMessage", (object[] args) => ((IGameIdContainer)args[0]).game_id).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.CommandName.FromGameCommandMessage", (object[] args) => { throw new System.Exception("test exception thrown"); return new object(); }).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Args.FromGameCommandMessage", (object[] args) => ((IArgContainer)args[0]).args).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Result.FromDefaultExceptionHandler", (object[] args) => "It\'s error").Execute();
+        GameCommandMessage game_command_message_for_test = Hwdtech.IoC.Resolve<GameCommandMessage>("SpaceShip.Lib.Messages.GameCommandMessage");
+        game_command_message_for_test.command_name = "cmd1";
+        game_command_message_for_test.game_id = "game1";
+        GameCommandMessageGetter end_point_for_test = Hwdtech.IoC.Resolve<GameCommandMessageGetter>("SpaceShip.Lib.EndPoints.GameCommandMessageGetter");
+        var results = end_point_for_test.get_message(game_command_message_for_test);
+        Assert.Equal(results, "It\'s error");
+    }
+
+    [Fact]
+    public void EndPoint_test_error_on_args_check()
+    {
+        new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.EndPoints.GameCommandMessageGetter", (object[] args) => new GameCommandMessageGetter()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Messages.GameCommandMessage", (object[] args) => new GameCommandMessage()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Strategies.GameCommandMessagePreprocessing", (object[] args) => new GameCommandMessagePreprocessingStrategy()).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Strategies.GameCommandMassegeGetterExceptionHandler", (object[] args) => new DefaultExceptionHandler(new object())).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.GameId.FromGameCommandMessage", (object[] args) => ((IGameIdContainer)args[0]).game_id).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Args.FromGameCommandMessage", (object[] args) => { throw new System.Exception("test exception thrown"); return new object(); }).Execute();
+        Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Result.FromDefaultExceptionHandler", (object[] args) => "It\'s error").Execute();
+        GameCommandMessage game_command_message_for_test = Hwdtech.IoC.Resolve<GameCommandMessage>("SpaceShip.Lib.Messages.GameCommandMessage");
+        game_command_message_for_test.command_name = "cmd1";
+        game_command_message_for_test.game_id = "game1";
+        GameCommandMessageGetter end_point_for_test = Hwdtech.IoC.Resolve<GameCommandMessageGetter>("SpaceShip.Lib.EndPoints.GameCommandMessageGetter");
+        var results = end_point_for_test.get_message(game_command_message_for_test);
+        Assert.Equal(results, "It\'s error");
+    }
+
+    [Fact]
     public void EndPoint_test_get_set_if_null()
     {
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
@@ -56,9 +118,7 @@ public class EP
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Args.FromGameCommandMessage", (object[] args) => ((IArgContainer)args[0]).args).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.CommandName.FromGameCommandMessage", (object[] args) => ((ICommandNameContainer)args[0]).command_name).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Result.FromDefaultExceptionHandler", (object[] args) => "It\'s error").Execute();
-
         GameCommandMessage game_command_message_for_test = Hwdtech.IoC.Resolve<GameCommandMessage>("SpaceShip.Lib.Messages.GameCommandMessage");
-
         GameCommandMessageGetter end_point_for_test = Hwdtech.IoC.Resolve<GameCommandMessageGetter>("SpaceShip.Lib.EndPoints.GameCommandMessageGetter");
         var results = (Dictionary<string, object>)end_point_for_test.get_message(game_command_message_for_test);
         Assert.Equal(game_command_message_for_test.command_name, results["command"]);
