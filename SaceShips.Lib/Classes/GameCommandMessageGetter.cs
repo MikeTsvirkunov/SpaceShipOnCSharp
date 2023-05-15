@@ -6,10 +6,16 @@ using SaceShips.Lib.Interfaces;
 namespace SaceShips.Lib.Classes;
 
 [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
-public class GameCommandMessageGetter : IWebApi
+public class GameCommandMessageGetter : IGameCommandEndPoint
 {
-    public object get_message(IMessage param)
+    public object get_message(GameCommandMessage param)
     {
-        return Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Strategies.GameCommandMessagePreprocessing").execute(param);
+        try{
+            return Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Strategies.GameCommandMessagePreprocessing").execute(param);
+        }
+        catch (System.Exception e){
+            return Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Strategies.GameCommandMassegeGetterExceptionHandler").execute(e, param);
+        }
+        
     }
 }
