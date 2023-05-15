@@ -61,7 +61,7 @@ public class EP
         game_command_message_for_test.game_id = "game1";
         GameCommandMessageGetter end_point_for_test = Hwdtech.IoC.Resolve<GameCommandMessageGetter>("SpaceShip.Lib.EndPoints.GameCommandMessageGetter");
         var results = end_point_for_test.get_message(game_command_message_for_test);
-        Assert.Equal(results, "It\'s error");
+        Assert.Equal("It\'s error", results);
     }
 
     [Fact]
@@ -82,7 +82,7 @@ public class EP
         game_command_message_for_test.game_id = "game1";
         GameCommandMessageGetter end_point_for_test = Hwdtech.IoC.Resolve<GameCommandMessageGetter>("SpaceShip.Lib.EndPoints.GameCommandMessageGetter");
         var results = end_point_for_test.get_message(game_command_message_for_test);
-        Assert.Equal(results, "It\'s error");
+        Assert.Equal("It\'s error", results);
     }
 
     [Fact]
@@ -102,7 +102,7 @@ public class EP
         game_command_message_for_test.game_id = "game1";
         GameCommandMessageGetter end_point_for_test = Hwdtech.IoC.Resolve<GameCommandMessageGetter>("SpaceShip.Lib.EndPoints.GameCommandMessageGetter");
         var results = end_point_for_test.get_message(game_command_message_for_test);
-        Assert.Equal(results, "It\'s error");
+        Assert.Equal("It\'s error", results);
     }
 
     [Fact]
