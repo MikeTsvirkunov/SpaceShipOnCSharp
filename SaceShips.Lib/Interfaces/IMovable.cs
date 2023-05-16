@@ -1,4 +1,5 @@
-namespace SaceShips.Lib.Classes;
+using SaceShips.Lib.Classes;
+namespace SaceShips.Lib.Interfaces;
 public interface IMovable
     {
         Vector position { get; set; }
