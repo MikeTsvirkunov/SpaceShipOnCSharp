@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace SaceShips.Lib.Classes;
 
-public class StartStandartGameExeCommandTimerCommand
+public class StartStandartGameExeCommandTimerCommand: ICommand
 {
     Stopwatch timer;
     public StartStandartGameExeCommandTimerCommand(Stopwatch timer){

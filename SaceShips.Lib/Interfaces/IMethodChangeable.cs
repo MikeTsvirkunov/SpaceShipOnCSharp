@@ -1,5 +1,5 @@
 namespace SaceShips.Lib.Interfaces;
 public interface IMethodChangeable
 {
-    void ChangeMethod(object f);
+    void ChangeMethod(IStartegy f);
 }
