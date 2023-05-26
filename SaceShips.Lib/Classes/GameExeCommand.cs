@@ -20,11 +20,9 @@ public class GameExeCommand : SaceShips.Lib.Interfaces.ICommand, IMethodChangeab
     {
         Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.SetScope", this.scope).action();
         var time_counter = Hwdtech.IoC.Resolve<System.Object>("SpaceShip.Lib.GameExeCommand.TimeCounter");
-        // if (StopWatc)
         Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.GameExeCommand.TimeCounter.Start", time_counter).action();
         while (Hwdtech.IoC.Resolve<System.Boolean>("SpaceShip.Lib.GameExeCommand.Run", this.run, time_counter, queue))
         {
-            // Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Execute.GameExeCommandStrategy", this.f, queue).action();
             try{
                 Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.Execute.GameExeCommandStrategy", this.f, queue).action();
             }
