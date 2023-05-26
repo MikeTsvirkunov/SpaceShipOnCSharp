@@ -16,6 +16,6 @@ public class WalkerInGameQueueStrategy : SaceShips.Lib.Interfaces.IStartegy
     }
     public object execute(params object[] args)
     {
-        return f_mod(args[0]);
+        return this.f_mod(args[0]);
     }
 }
