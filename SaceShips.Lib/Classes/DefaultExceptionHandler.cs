@@ -10,7 +10,6 @@ public class DefaultExceptionHandler: SaceShips.Lib.Interfaces.IStartegy
     public DefaultExceptionHandler(object exception_container){
         this.exception_container = exception_container;
     }
-
     public object execute(params object[] args){
         return Hwdtech.IoC.Resolve<System.Object>("SpaceShip.Lib.Get.Result.FromDefaultExceptionHandler", this.exception_container, args[0]);
     }

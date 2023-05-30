@@ -1,6 +1,7 @@
 using SaceShips.Lib.Interfaces;
 namespace SaceShips.Lib.Classes;
 using System.Collections.Generic;
+#nullable enable
 
 public class Tree
 {
