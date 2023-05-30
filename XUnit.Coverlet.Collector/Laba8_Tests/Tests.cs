@@ -17,7 +17,7 @@ public class GameExeCommandTest
     public void stope_Game_ExeCommand_by_time_test()
     {
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
-        int game_time = 10000000;
+        int game_time = 1000000;
         var game_timer = new Stopwatch();
         var empty_command = new Mock<SaceShips.Lib.Interfaces.ICommand>();
         empty_command.Setup(p => p.action());
@@ -149,6 +149,5 @@ public class GameExeCommandTest
         test_queue.Enqueue(test_command.Object);
         var game_exe_command_test = Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.ICommand>("SpaceShip.Lib.GameExeCommand", test_queue, game_scope);
         game_exe_command_test.action();
-        
     }
 }
