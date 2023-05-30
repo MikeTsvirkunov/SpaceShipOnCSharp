@@ -12,7 +12,6 @@ public class ScribanTemplateBuilderStrategy : SaceShips.Lib.Interfaces.IStartegy
     }
     public object execute(params object[] args)
     {
-        //Hwdtech.IoC.Resolve<System.Type>("SpaceShip.Lib.Get.TypeOf.ModulesMass", args[0])
         return this.template_compiled.Render(Hwdtech.IoC.Resolve<System.Object>("SpaceShip.Lib.Get.AttributesAndMethods", args[0]));
     }
 }

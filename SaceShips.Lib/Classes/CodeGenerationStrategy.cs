@@ -6,13 +6,12 @@ using Scriban;
 public class CodeGenerationStrategy : SaceShips.Lib.Interfaces.IStartegy
 {
     object template;
-    object template_builder;
-    public CodeGenerationStrategy(object template, object template_builder)
+    public CodeGenerationStrategy(object template)
     {
         this.template = template;
     }
-    public object execute(object[] args)
+    public object execute(params object[] args)
     {
-        return Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.Get.TemplateBuilderStrategy", this.template).execute(Hwdtech.IoC.Resolve<System.Collections.Generic.List<System.Object>>("SpaceShip.Lib.GenerateCode.Modules.Preprocessing", args));
+        return Hwdtech.IoC.Resolve<SaceShips.Lib.Interfaces.IStartegy>("SpaceShip.Lib.TemplateBuilderStrategy", this.template).execute(Hwdtech.IoC.Resolve<System.Object>("SpaceShip.Lib.GenerateCode.Modules.Preprocessing", args));
     }
 }
