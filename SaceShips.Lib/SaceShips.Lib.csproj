@@ -21,5 +21,6 @@
     <PackageReference Include="System.Reactive" Version="6.0.0-preview.13" />
     <PackageReference Include="System.Reactive.Core" Version="6.0.0-preview.13" />
     <PackageReference Include="System.Reactive.Linq" Version="6.0.0-preview.13" />
+    <PackageReference Include="Scriban" Version="5.7.0" />
   </ItemGroup>
 </Project>
