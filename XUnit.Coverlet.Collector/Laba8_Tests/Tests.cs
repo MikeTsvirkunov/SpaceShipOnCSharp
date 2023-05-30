@@ -17,7 +17,7 @@ public class GameExeCommandTest
     public void stope_Game_ExeCommand_by_time_test()
     {
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
-        int game_time = 10000;
+        int game_time = 100000;
         var game_timer = new Stopwatch();
         var empty_command = new Mock<SaceShips.Lib.Interfaces.ICommand>();
         empty_command.Setup(p => p.action());
