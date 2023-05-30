@@ -19,10 +19,6 @@ public class MethodsGetStrategy_test
     public void standart_get_methods(){
         new Hwdtech.Ioc.InitScopeBasedIoCImplementationCommand().Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("Scopes.Current.Set", Hwdtech.IoC.Resolve<object>("Scopes.New", Hwdtech.IoC.Resolve<object>("Scopes.Root"))).Execute();
-        // Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.TemplateBuilderStrategy", (object[] args) => new ScribanTemplateBuilderStrategy((System.String)args[0])).Execute();
-        // Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.GenerateCode.Modules.Preprocessing", (object[] args) => args).Execute();
-        // Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Dictionary.MembersNameMembersProperty", (object[] args) => args).Execute();
-        // Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Methods.From.Interface", (object[] args) => typeof(args[0]).GetMethods(BindingFlags.Instance | BindingFlags.Public).ToList().Where(m => !m.IsSpecialName).Select(i => Regex.Replace(i.ToString(), pattern, String.Empty))).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.Get.Methods.From.Interface", (object[] args) => ((System.Type)args[0]).GetMethods().Where(m => !m.IsSpecialName).Select(i => Regex.Replace(Regex.Replace(i.ToString(), @"`\d\[([^\[\]]+)\]", "<$1>"), "\\(.*\\)", String.Empty)).ToList<System.String>()).Execute();
         Hwdtech.IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "SpaceShip.Lib.MethodsGetStrategy", (object[] args) => new MethodsGetStrategy((System.Type)args[0])).Execute();
         var attributes_get_strategy_test_object = Hwdtech.IoC.Resolve<MethodsGetStrategy>("SpaceShip.Lib.MethodsGetStrategy", typeof(ISource));
